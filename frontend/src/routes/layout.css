@@ -1,0 +1,4 @@
+@import 'tailwindcss';
+
+/* class-basierter Dark Mode: dark:* greift wenn ein Elternelement .dark hat */
+@custom-variant dark (&:where(.dark, .dark *));

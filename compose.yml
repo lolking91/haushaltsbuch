@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: haushaltsbuch-db
+    environment:
+      POSTGRES_DB: haushaltsbuch
+      POSTGRES_USER: haushalt
+      POSTGRES_PASSWORD: haushalt
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

@@ -1,0 +1,100 @@
+IBAN;DE49500105175425834662
+Kontoname;Girokonto
+Bank;ING-DiBa AG
+Saldo;4.127,83;EUR
+Zeitraum;01.01.2024 - 31.12.2024
+
+Buchung;Wertstellungsdatum;Auftraggeber/Empfaenger;Buchungstext;Verwendungszweck;Saldo;Waehrung;Betrag;Waehrung
+02.01.2024;02.01.2024;Musterfirma GmbH;Gutschrift;Gehalt Januar 2024;0,00;EUR;3.500,00;EUR
+03.01.2024;03.01.2024;Thomas Bergmann;Dauerauftrag;Miete Januar 2024;0,00;EUR;-1.100,00;EUR
+06.01.2024;06.01.2024;Netflix International;Lastschrift;Streaming Abo Januar;0,00;EUR;-12,99;EUR
+10.01.2024;10.01.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-58,42;EUR
+12.01.2024;12.01.2024;Stadtwerke Musterstadt;Lastschrift;Abschlag Strom und Gas Januar;0,00;EUR;-120,00;EUR
+15.01.2024;15.01.2024;Spotify AB;Lastschrift;Premium Abo Januar;0,00;EUR;-8,99;EUR
+22.01.2024;22.01.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-47,83;EUR
+28.01.2024;28.01.2024;Amazon Payments;Lastschrift;Bestellung 303-1234567-8901234;0,00;EUR;-34,99;EUR
+01.02.2024;01.02.2024;Musterfirma GmbH;Gutschrift;Gehalt Februar 2024;0,00;EUR;3.500,00;EUR
+03.02.2024;03.02.2024;Thomas Bergmann;Dauerauftrag;Miete Februar 2024;0,00;EUR;-1.100,00;EUR
+06.02.2024;06.02.2024;Netflix International;Lastschrift;Streaming Abo Februar;0,00;EUR;-12,99;EUR
+12.02.2024;12.02.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-62,15;EUR
+15.02.2024;15.02.2024;Spotify AB;Lastschrift;Premium Abo Februar;0,00;EUR;-8,99;EUR
+20.02.2024;20.02.2024;Ristorante da Marco;Kartenzahlung;;0,00;EUR;-48,60;EUR
+25.02.2024;25.02.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-53,80;EUR
+01.03.2024;01.03.2024;Musterfirma GmbH;Gutschrift;Gehalt Maerz 2024;0,00;EUR;3.500,00;EUR
+04.03.2024;04.03.2024;Thomas Bergmann;Dauerauftrag;Miete Maerz 2024;0,00;EUR;-1.100,00;EUR
+06.03.2024;06.03.2024;Netflix International;Lastschrift;Streaming Abo Maerz;0,00;EUR;-12,99;EUR
+10.03.2024;10.03.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-71,23;EUR
+15.03.2024;15.03.2024;Spotify AB;Lastschrift;Premium Abo Maerz;0,00;EUR;-8,99;EUR
+18.03.2024;18.03.2024;Finanzamt Musterstadt;Gutschrift;Steuererstattung 2023;0,00;EUR;890,00;EUR
+22.03.2024;22.03.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-44,67;EUR
+28.03.2024;28.03.2024;ARD ZDF Deutschlandradio;Lastschrift;Rundfunkbeitrag Q1 2024;0,00;EUR;-55,08;EUR
+01.04.2024;01.04.2024;Musterfirma GmbH;Gutschrift;Gehalt April 2024;0,00;EUR;3.500,00;EUR
+03.04.2024;03.04.2024;Thomas Bergmann;Dauerauftrag;Miete April 2024;0,00;EUR;-1.100,00;EUR
+06.04.2024;06.04.2024;Netflix International;Lastschrift;Streaming Abo April;0,00;EUR;-12,99;EUR
+11.04.2024;11.04.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-55,38;EUR
+15.04.2024;15.04.2024;Spotify AB;Lastschrift;Premium Abo April;0,00;EUR;-8,99;EUR
+20.04.2024;20.04.2024;Shell Tankstelle;Kartenzahlung;Kraftstoff;0,00;EUR;-65,00;EUR
+26.04.2024;26.04.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-49,22;EUR
+02.05.2024;02.05.2024;Musterfirma GmbH;Gutschrift;Gehalt Mai 2024;0,00;EUR;3.500,00;EUR
+03.05.2024;03.05.2024;Thomas Bergmann;Dauerauftrag;Miete Mai 2024;0,00;EUR;-1.100,00;EUR
+06.05.2024;06.05.2024;Netflix International;Lastschrift;Streaming Abo Mai;0,00;EUR;-12,99;EUR
+09.05.2024;09.05.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-68,45;EUR
+15.05.2024;15.05.2024;Spotify AB;Lastschrift;Premium Abo Mai;0,00;EUR;-8,99;EUR
+18.05.2024;18.05.2024;Amazon Payments;Lastschrift;Bestellung 303-9876543-2109876;0,00;EUR;-89,90;EUR
+23.05.2024;23.05.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-52,10;EUR
+29.05.2024;29.05.2024;Bella Italia GmbH;Kartenzahlung;;0,00;EUR;-62,40;EUR
+03.06.2024;03.06.2024;Musterfirma GmbH;Gutschrift;Gehalt Juni 2024;0,00;EUR;3.500,00;EUR
+03.06.2024;03.06.2024;Thomas Bergmann;Dauerauftrag;Miete Juni 2024;0,00;EUR;-1.100,00;EUR
+06.06.2024;06.06.2024;Netflix International;Lastschrift;Streaming Abo Juni;0,00;EUR;-12,99;EUR
+13.06.2024;13.06.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-59,78;EUR
+15.06.2024;15.06.2024;Spotify AB;Lastschrift;Premium Abo Juni;0,00;EUR;-8,99;EUR
+21.06.2024;21.06.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-44,33;EUR
+28.06.2024;28.06.2024;Tagesgeldkonto DE82200505501234567890;Umbuchung;Urlaubsruecklage Sommer;0,00;EUR;-500,00;EUR
+01.07.2024;01.07.2024;Musterfirma GmbH;Gutschrift;Gehalt Juli 2024;0,00;EUR;3.500,00;EUR
+03.07.2024;03.07.2024;Thomas Bergmann;Dauerauftrag;Miete Juli 2024;0,00;EUR;-1.100,00;EUR
+05.07.2024;05.07.2024;Booking.com BV;Lastschrift;Hotel Teneriffa 14.-21.07.2024;0,00;EUR;-680,00;EUR
+06.07.2024;06.07.2024;Netflix International;Lastschrift;Streaming Abo Juli;0,00;EUR;-12,99;EUR
+10.07.2024;10.07.2024;Condor Flugdienst;Lastschrift;Flug Teneriffa Hin- und Rueckflug;0,00;EUR;-320,00;EUR
+15.07.2024;15.07.2024;Spotify AB;Lastschrift;Premium Abo Juli;0,00;EUR;-8,99;EUR
+18.07.2024;18.07.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-45,22;EUR
+22.07.2024;22.07.2024;Restaurante El Sol;Kartenzahlung;;0,00;EUR;-78,50;EUR
+27.07.2024;27.07.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-51,80;EUR
+01.08.2024;01.08.2024;Musterfirma GmbH;Gutschrift;Gehalt August 2024;0,00;EUR;3.500,00;EUR
+02.08.2024;02.08.2024;Thomas Bergmann;Dauerauftrag;Miete August 2024;0,00;EUR;-1.100,00;EUR
+06.08.2024;06.08.2024;Netflix International;Lastschrift;Streaming Abo August;0,00;EUR;-12,99;EUR
+12.08.2024;12.08.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-63,44;EUR
+15.08.2024;15.08.2024;Spotify AB;Lastschrift;Premium Abo August;0,00;EUR;-8,99;EUR
+20.08.2024;20.08.2024;Amazon Payments;Lastschrift;Bestellung 303-1122334-4556677;0,00;EUR;-44,97;EUR
+25.08.2024;25.08.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-57,88;EUR
+02.09.2024;02.09.2024;Musterfirma GmbH;Gutschrift;Gehalt September 2024;0,00;EUR;3.500,00;EUR
+03.09.2024;03.09.2024;Thomas Bergmann;Dauerauftrag;Miete September 2024;0,00;EUR;-1.100,00;EUR
+06.09.2024;06.09.2024;Netflix International;Lastschrift;Streaming Abo September;0,00;EUR;-12,99;EUR
+09.09.2024;09.09.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-66,22;EUR
+15.09.2024;15.09.2024;Spotify AB;Lastschrift;Premium Abo September;0,00;EUR;-8,99;EUR
+18.09.2024;18.09.2024;ARD ZDF Deutschlandradio;Lastschrift;Rundfunkbeitrag Q3 2024;0,00;EUR;-55,08;EUR
+22.09.2024;22.09.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-48,77;EUR
+27.09.2024;27.09.2024;Dr. med. M. Schneider;Ueberweisung;Zahnarztrechnung September;0,00;EUR;-180,00;EUR
+01.10.2024;01.10.2024;Musterfirma GmbH;Gutschrift;Gehalt Oktober 2024;0,00;EUR;3.500,00;EUR
+03.10.2024;03.10.2024;Thomas Bergmann;Dauerauftrag;Miete Oktober 2024;0,00;EUR;-1.100,00;EUR
+06.10.2024;06.10.2024;Netflix International;Lastschrift;Streaming Abo Oktober;0,00;EUR;-12,99;EUR
+10.10.2024;10.10.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-72,33;EUR
+15.10.2024;15.10.2024;Spotify AB;Lastschrift;Premium Abo Oktober;0,00;EUR;-8,99;EUR
+18.10.2024;18.10.2024;Amazon Payments;Lastschrift;Bestellung 303-5544332-2211009;0,00;EUR;-129,90;EUR
+22.10.2024;22.10.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-55,60;EUR
+29.10.2024;29.10.2024;Ristorante da Marco;Kartenzahlung;;0,00;EUR;-55,80;EUR
+01.11.2024;01.11.2024;Musterfirma GmbH;Gutschrift;Gehalt November 2024;0,00;EUR;3.500,00;EUR
+04.11.2024;04.11.2024;Thomas Bergmann;Dauerauftrag;Miete November 2024;0,00;EUR;-1.100,00;EUR
+06.11.2024;06.11.2024;Netflix International;Lastschrift;Streaming Abo November;0,00;EUR;-12,99;EUR
+12.11.2024;12.11.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-69,88;EUR
+15.11.2024;15.11.2024;Spotify AB;Lastschrift;Premium Abo November;0,00;EUR;-8,99;EUR
+20.11.2024;20.11.2024;Amazon Payments;Lastschrift;Black Friday Bestellung;0,00;EUR;-156,00;EUR
+26.11.2024;26.11.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-61,44;EUR
+02.12.2024;02.12.2024;Musterfirma GmbH;Gutschrift;Gehalt Dezember 2024;0,00;EUR;3.500,00;EUR
+02.12.2024;02.12.2024;Musterfirma GmbH;Gutschrift;Jahresbonus 2024;0,00;EUR;2.500,00;EUR
+03.12.2024;03.12.2024;Thomas Bergmann;Dauerauftrag;Miete Dezember 2024;0,00;EUR;-1.100,00;EUR
+06.12.2024;06.12.2024;Netflix International;Lastschrift;Streaming Abo Dezember;0,00;EUR;-12,99;EUR
+10.12.2024;10.12.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-88,55;EUR
+15.12.2024;15.12.2024;Spotify AB;Lastschrift;Premium Abo Dezember;0,00;EUR;-8,99;EUR
+18.12.2024;18.12.2024;Amazon Payments;Lastschrift;Weihnachtsgeschenke;0,00;EUR;-234,80;EUR
+20.12.2024;20.12.2024;ARD ZDF Deutschlandradio;Lastschrift;Rundfunkbeitrag Q4 2024;0,00;EUR;-55,08;EUR
+22.12.2024;22.12.2024;REWE Markt;Kartenzahlung;;0,00;EUR;-95,23;EUR

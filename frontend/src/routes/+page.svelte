@@ -4,28 +4,7 @@
 	import Icon from '@iconify/svelte';
 	import { _ } from 'svelte-i18n';
 	import { Badge } from '$lib/components/ui/badge/index.js';
-
-	// --- Types ---
-
-	type Account = {
-		id: number;
-		name: string;
-		bankName: string;
-		iban: string;
-		currency: string;
-		balance: number;
-	};
-
-	type Transaction = {
-		id: number;
-		bookingDate: string;
-		counterpartyName: string | null;
-		description: string | null;
-		amount: number;
-		currency: string;
-		type: 'INCOME' | 'EXPENSE';
-		account: Account;
-	};
+	import type { Account, Transaction } from '$lib/types/types.js';
 
 	// --- State ---
 

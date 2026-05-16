@@ -12,30 +12,7 @@
 		TableRow
 	} from '$lib/components/ui/table/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
-
-	// --- Types ---
-
-	type Account = {
-		id: number;
-		name: string;
-		bankName: string;
-		iban: string;
-		currency: string;
-		balance: number;
-	};
-
-	type Transaction = {
-		id: number;
-		bookingDate: string;
-		valueDate: string;
-		counterpartyName: string | null;
-		bookingText: string | null;
-		description: string | null;
-		amount: number;
-		currency: string;
-		type: 'INCOME' | 'EXPENSE';
-		account: Account;
-	};
+	import type { Account, Transaction } from '$lib/types/types.js';
 
 	// --- State ---
 

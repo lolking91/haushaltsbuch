@@ -2,31 +2,11 @@
 	import { base } from '$app/paths';
 	import Icon from '@iconify/svelte';
 	import { _ } from 'svelte-i18n';
-
-	// --- Types ---
-
-	type ImportResult = {
-		importJobId: number;
-		status: string;
-		imported: number;
-		skipped: number;
-		accountId: number;
-	};
-
-	type Account = {
-		id: number;
-		name: string;
-		bankName: string;
-		iban: string;
-		currency: string;
-		balance: number;
-	};
-
-	type State = 'idle' | 'uploading' | 'success' | 'error';
+	import type { Account, ImportResult, ImportState } from '$lib/types/api.js';
 
 	// --- State ---
 
-	let importState: State = $state('idle');
+	let importState: ImportState = $state('idle');
 	let selectedFile: File | null = $state(null);
 	let isDragging = $state(false);
 	let result: ImportResult | null = $state(null);

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { base } from '$app/paths';
 	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte';
 	import { _ } from 'svelte-i18n';
@@ -13,6 +12,8 @@
 	} from '$lib/components/ui/table/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import type { Account, Transaction } from '$lib/types/types.js';
+	import { accountsApi } from '$lib/api/accounts.js';
+	import { transactionsApi } from '$lib/api/transactions.js';
 
 	// --- State ---
 
@@ -50,15 +51,10 @@
 
 	onMount(async () => {
 		try {
-			const [accountsRes, txRes] = await Promise.all([
-				fetch(`${base}/api/accounts`),
-				fetch(`${base}/api/transactions`)
+			[accounts, transactions] = await Promise.all([
+				accountsApi.getAll(),
+				transactionsApi.getAll()
 			]);
-
-			if (!accountsRes.ok || !txRes.ok) throw new Error($_('transactions.error_load'));
-
-			accounts = await accountsRes.json();
-			transactions = await txRes.json();
 		} catch (e) {
 			errorMessage = e instanceof Error ? e.message : String(e);
 		} finally {

@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { base } from '$app/paths';
 	import Icon from '@iconify/svelte';
 	import { _ } from 'svelte-i18n';
-	import type { Account, ImportResult, ImportState } from '$lib/types/api.js';
+	import type { Account, ImportResult, ImportState } from '$lib/types/types.js';
+	import { accountsApi } from '$lib/api/accounts.js';
+	import { importApi } from '$lib/api/import.js';
 
 	// --- State ---
 
@@ -45,21 +46,10 @@
 		errorMessage = '';
 
 		try {
-			const body = new FormData();
-			body.append('file', selectedFile);
-
-			const res = await fetch(`${base}/api/import/ing`, { method: 'POST', body });
-
-			if (!res.ok) {
-				const text = await res.text();
-				throw new Error(text || `HTTP ${res.status}`);
-			}
-
-			result = await res.json();
+			result = await importApi.importIng(selectedFile);
 
 			// Load account details for the result summary
-			const accountRes = await fetch(`${base}/api/accounts/${result!.accountId}`);
-			if (accountRes.ok) account = await accountRes.json();
+			account = await accountsApi.getById(result.accountId);
 
 			importState = 'success';
 		} catch (e) {

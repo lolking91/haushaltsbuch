@@ -1,0 +1,58 @@
+{
+	"nav": {
+		"app_name": "Haushaltsbuch",
+		"dashboard": "Dashboard",
+		"transactions": "Transaktionen",
+		"import": "CSV Import",
+		"reports": "Auswertungen",
+		"toggle_dark_mode": "Dark Mode umschalten",
+		"open_menu": "Menü öffnen"
+	},
+	"dashboard": {
+		"title": "Dashboard",
+		"accounts": "Konten",
+		"income_month": "Einnahmen (Monat)",
+		"expenses_month": "Ausgaben (Monat)",
+		"overview_placeholder": "Hier erscheint künftig eine Übersicht aller Konten und Salden."
+	},
+	"transactions": {
+		"title": "Transaktionen",
+		"search_placeholder": "Empfänger, Verwendungszweck…",
+		"all_accounts": "Alle Konten",
+		"col_date": "Datum",
+		"col_counterparty": "Empfänger / Auftraggeber",
+		"col_purpose": "Verwendungszweck",
+		"col_account": "Konto",
+		"col_type": "Typ",
+		"col_amount": "Betrag",
+		"badge_income": "Einnahme",
+		"badge_expense": "Ausgabe",
+		"loading": "Lade Transaktionen…",
+		"error_load": "Fehler beim Laden der Daten",
+		"empty_no_import": "Noch keine Transaktionen vorhanden. Importiere zuerst einen Kontoauszug.",
+		"empty_no_results": "Keine Ergebnisse für die aktuelle Suche.",
+		"row_count": "{count, plural, one {# Transaktion} other {# Transaktionen}}",
+		"row_count_filtered": "von {total} gesamt"
+	},
+	"import": {
+		"title": "CSV Import",
+		"drop_label": "CSV-Datei auswählen oder hierher ziehen",
+		"drop_hint": "CSV-Datei hierher ziehen oder",
+		"drop_action": "Datei auswählen",
+		"drop_change": "andere Datei wählen",
+		"button": "Importieren",
+		"uploading": "Datei wird importiert…",
+		"success_title": "Import erfolgreich",
+		"success_job": "Job-ID: #{id}",
+		"stat_imported": "importiert",
+		"stat_skipped": "übersprungen (Duplikate)",
+		"account_section": "Konto",
+		"restart": "Weiteren Import starten"
+	},
+	"reports": {
+		"title": "Auswertungen",
+		"expenses_by_category": "Ausgaben nach Kategorie",
+		"income_vs_expenses": "Einnahmen vs. Ausgaben",
+		"no_data": "Noch keine Daten vorhanden"
+	}
+}

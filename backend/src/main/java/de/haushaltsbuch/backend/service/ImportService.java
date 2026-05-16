@@ -70,10 +70,10 @@ public class ImportService {
         account = accountRepository.save(account);
 
         int imported = 0;
-        int skipped  = 0;
+        int skipped = 0;
 
         for (IngCsvRecord record : csvFile.records()) {
-            String description = record.verwendungszweck().isEmpty() ? null : record.verwendungszweck();
+            String description = record.referenceText().isEmpty() ? null : record.referenceText();
 
             if (transactionRepository.existsByAccountAndBookingDateAndAmountAndDescription(
                     account, record.bookingDate(), record.amount(), description)) {

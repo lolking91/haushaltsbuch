@@ -1,0 +1,58 @@
+{
+	"nav": {
+		"app_name": "Haushaltsbuch",
+		"dashboard": "Dashboard",
+		"transactions": "Transactions",
+		"import": "CSV Import",
+		"reports": "Reports",
+		"toggle_dark_mode": "Toggle dark mode",
+		"open_menu": "Open menu"
+	},
+	"dashboard": {
+		"title": "Dashboard",
+		"accounts": "Accounts",
+		"income_month": "Income (month)",
+		"expenses_month": "Expenses (month)",
+		"overview_placeholder": "An overview of all accounts and balances will appear here."
+	},
+	"transactions": {
+		"title": "Transactions",
+		"search_placeholder": "Payee, purpose…",
+		"all_accounts": "All accounts",
+		"col_date": "Date",
+		"col_counterparty": "Payee / Payer",
+		"col_purpose": "Purpose",
+		"col_account": "Account",
+		"col_type": "Type",
+		"col_amount": "Amount",
+		"badge_income": "Income",
+		"badge_expense": "Expense",
+		"loading": "Loading transactions…",
+		"error_load": "Error loading data",
+		"empty_no_import": "No transactions yet. Import a bank statement first.",
+		"empty_no_results": "No results for the current search.",
+		"row_count": "{count, plural, one {# transaction} other {# transactions}}",
+		"row_count_filtered": "of {total} total"
+	},
+	"import": {
+		"title": "CSV Import",
+		"drop_label": "Select or drag CSV file here",
+		"drop_hint": "Drag CSV file here or",
+		"drop_action": "Select file",
+		"drop_change": "Select different file",
+		"button": "Import",
+		"uploading": "Importing file…",
+		"success_title": "Import successful",
+		"success_job": "Job ID: #{id}",
+		"stat_imported": "imported",
+		"stat_skipped": "skipped (duplicates)",
+		"account_section": "Account",
+		"restart": "Start another import"
+	},
+	"reports": {
+		"title": "Reports",
+		"expenses_by_category": "Expenses by category",
+		"income_vs_expenses": "Income vs. expenses",
+		"no_data": "No data available yet"
+	}
+}

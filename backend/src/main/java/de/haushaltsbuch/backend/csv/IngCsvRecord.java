@@ -14,7 +14,7 @@ public record IngCsvRecord(
         LocalDate valueDate,
         String counterpartyName,
         String bookingText,
-        String verwendungszweck,
+        String referenceText,
         BigDecimal amount,
         String currency
 ) {}

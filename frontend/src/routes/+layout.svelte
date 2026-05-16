@@ -3,9 +3,15 @@
 	import Nav from '$lib/components/Nav.svelte';
 	import favicon from '$lib/assets/favicon.svg';
 	import { theme } from '$lib/stores/theme.svelte';
+	import { setupI18n } from '$lib/i18n/index.js';
+	import '$lib/icons.js';
 	import { browser } from '$app/environment';
 
 	let { children } = $props();
+
+	// Registers translation catalogues and restores persisted locale.
+	// Must run before any component renders translated strings.
+	setupI18n();
 
 	$effect(() => {
 		if (browser) {

@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { onMount } from 'svelte';
+	import Icon from '@iconify/svelte';
+	import { _ } from 'svelte-i18n';
 	import {
 		Table,
 		TableBody,
@@ -76,12 +78,12 @@
 				fetch(`${base}/api/transactions`)
 			]);
 
-			if (!accountsRes.ok || !txRes.ok) throw new Error('Fehler beim Laden der Daten');
+			if (!accountsRes.ok || !txRes.ok) throw new Error($_('transactions.error_load'));
 
 			accounts = await accountsRes.json();
 			transactions = await txRes.json();
 		} catch (e) {
-			errorMessage = e instanceof Error ? e.message : 'Unbekannter Fehler';
+			errorMessage = e instanceof Error ? e.message : String(e);
 		} finally {
 			loading = false;
 		}
@@ -89,7 +91,7 @@
 
 	// --- Formatting helpers ---
 
-	/** Formats a date string (YYYY-MM-DD) as a short German locale date, e.g. "14.05.2026". */
+	/** Formats a date string (YYYY-MM-DD) as a short locale date, e.g. "14.05.2026". */
 	function formatDate(dateStr: string): string {
 		return new Date(dateStr).toLocaleDateString('de-DE', {
 			day: '2-digit',
@@ -105,7 +107,7 @@
 </script>
 
 <div class="space-y-4">
-	<h1 class="text-2xl font-bold">Transaktionen</h1>
+	<h1 class="text-2xl font-bold">{$_('transactions.title')}</h1>
 
 	<!-- Toolbar -->
 	<div
@@ -114,23 +116,13 @@
 	>
 		<!-- Search -->
 		<div class="relative flex-1">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
+			<Icon
+				icon="heroicons:magnifying-glass"
 				class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-slate-500 pointer-events-none"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"
-				/>
-			</svg>
+			/>
 			<input
 				type="text"
-				placeholder="Empfänger, Verwendungszweck…"
+				placeholder={$_('transactions.search_placeholder')}
 				bind:value={searchQuery}
 				class="w-full pl-9 pr-3 py-2 rounded-lg border border-gray-300 dark:border-slate-600
 					   bg-white dark:bg-slate-900 text-sm outline-none
@@ -145,7 +137,7 @@
 				   bg-white dark:bg-slate-900 text-sm outline-none
 				   focus:ring-2 focus:ring-blue-500"
 		>
-			<option value="">Alle Konten</option>
+			<option value="">{$_('transactions.all_accounts')}</option>
 			{#each accounts as account}
 				<option value={account.id}>{account.name}</option>
 			{/each}
@@ -158,56 +150,34 @@
 	>
 		{#if loading}
 			<div class="flex items-center justify-center gap-3 p-12 text-gray-400 dark:text-slate-500">
-				<svg
-					class="w-5 h-5 animate-spin text-blue-600"
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-				>
-					<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
-					></circle>
-					<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-				</svg>
-				<span class="text-sm">Lade Transaktionen…</span>
+				<Icon icon="heroicons:arrow-path" class="w-5 h-5 animate-spin text-blue-600" />
+				<span class="text-sm">{$_('transactions.loading')}</span>
 			</div>
 		{:else if errorMessage}
 			<div
 				class="flex items-start gap-3 m-4 p-4 rounded-xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400"
 			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="w-5 h-5 mt-0.5 shrink-0"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-					/>
-				</svg>
+				<Icon icon="heroicons:exclamation-circle" class="w-5 h-5 mt-0.5 shrink-0" />
 				<p class="text-sm">{errorMessage}</p>
 			</div>
 		{:else if filtered.length === 0}
 			<div class="p-12 text-center text-gray-400 dark:text-slate-500 text-sm">
 				{#if transactions.length === 0}
-					Noch keine Transaktionen vorhanden. Importiere zuerst einen Kontoauszug.
+					{$_('transactions.empty_no_import')}
 				{:else}
-					Keine Ergebnisse für die aktuelle Suche.
+					{$_('transactions.empty_no_results')}
 				{/if}
 			</div>
 		{:else}
 			<Table>
 				<TableHeader>
 					<TableRow>
-						<TableHead>Datum</TableHead>
-						<TableHead>Empfänger / Auftraggeber</TableHead>
-						<TableHead class="hidden md:table-cell">Verwendungszweck</TableHead>
-						<TableHead class="hidden lg:table-cell">Konto</TableHead>
-						<TableHead>Typ</TableHead>
-						<TableHead class="text-right">Betrag</TableHead>
+						<TableHead>{$_('transactions.col_date')}</TableHead>
+						<TableHead>{$_('transactions.col_counterparty')}</TableHead>
+						<TableHead class="hidden md:table-cell">{$_('transactions.col_purpose')}</TableHead>
+						<TableHead class="hidden lg:table-cell">{$_('transactions.col_account')}</TableHead>
+						<TableHead>{$_('transactions.col_type')}</TableHead>
+						<TableHead class="text-right">{$_('transactions.col_amount')}</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
@@ -232,7 +202,9 @@
 							</TableCell>
 							<TableCell>
 								<Badge variant={tx.type === 'INCOME' ? 'income' : 'expense'}>
-									{tx.type === 'INCOME' ? 'Einnahme' : 'Ausgabe'}
+									{tx.type === 'INCOME'
+										? $_('transactions.badge_income')
+										: $_('transactions.badge_expense')}
 								</Badge>
 							</TableCell>
 							<TableCell
@@ -248,14 +220,13 @@
 				</TableBody>
 			</Table>
 
-			<!-- Row count -->
+			<!-- Row count footer -->
 			<div
 				class="px-4 py-3 border-t border-gray-200 dark:border-slate-700 text-xs text-gray-400 dark:text-slate-500"
 			>
-				{filtered.length}
-				{filtered.length === 1 ? 'Transaktion' : 'Transaktionen'}
+				{$_('transactions.row_count', { values: { count: filtered.length } })}
 				{#if filtered.length !== transactions.length}
-					von {transactions.length} gesamt
+					{$_('transactions.row_count_filtered', { values: { total: transactions.length } })}
 				{/if}
 			</div>
 		{/if}

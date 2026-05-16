@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+	import Icon from '@iconify/svelte';
+	import { _ } from 'svelte-i18n';
 
 	// --- Types ---
 
@@ -103,17 +105,16 @@
 	}
 </script>
 
-<h1 class="text-2xl font-bold mb-6">CSV Import</h1>
+<h1 class="text-2xl font-bold mb-6">{$_('import.title')}</h1>
 
-<!-- ── Idle / File selection ─────────────────────────────────────────────── -->
+<!-- Idle / File selection -->
 {#if importState === 'idle' || importState === 'error'}
 	<div class="max-w-lg space-y-4">
-		<!-- Drop zone -->
-		<!-- ondragover/ondrop: browser file drag & drop API -->
+		<!-- Drop zone — ondragover/ondrop: browser file drag & drop API -->
 		<div
 			role="button"
 			tabindex="0"
-			aria-label="CSV-Datei auswählen oder hierher ziehen"
+			aria-label={$_('import.drop_label')}
 			ondragover={onDragOver}
 			ondragleave={onDragLeave}
 			ondrop={onDrop}
@@ -124,17 +125,14 @@
 					: 'border-gray-300 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500'}"
 		>
 			<label class="flex flex-col items-center gap-2 cursor-pointer w-full h-full justify-center">
-				<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-gray-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-						d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
-				</svg>
+				<Icon icon="heroicons:arrow-up-tray" class="w-10 h-10 text-gray-400 dark:text-slate-500" />
 
 				{#if selectedFile}
 					<span class="text-sm font-medium text-blue-600 dark:text-blue-400">{selectedFile.name}</span>
-					<span class="text-xs text-gray-400 dark:text-slate-500">andere Datei wählen</span>
+					<span class="text-xs text-gray-400 dark:text-slate-500">{$_('import.drop_change')}</span>
 				{:else}
-					<span class="text-sm text-gray-600 dark:text-slate-300">CSV-Datei hierher ziehen oder</span>
-					<span class="text-sm font-medium text-blue-600 dark:text-blue-400 underline">Datei auswählen</span>
+					<span class="text-sm text-gray-600 dark:text-slate-300">{$_('import.drop_hint')}</span>
+					<span class="text-sm font-medium text-blue-600 dark:text-blue-400 underline">{$_('import.drop_action')}</span>
 				{/if}
 
 				<input type="file" accept=".csv" class="hidden" onchange={onFileInput} />
@@ -144,9 +142,7 @@
 		<!-- Error message -->
 		{#if importState === 'error'}
 			<div class="flex items-start gap-3 p-4 rounded-xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400">
-				<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-				</svg>
+				<Icon icon="heroicons:exclamation-circle" class="w-5 h-5 mt-0.5 shrink-0" />
 				<p class="text-sm">{errorMessage}</p>
 			</div>
 		{/if}
@@ -159,55 +155,53 @@
 				   bg-blue-600 hover:bg-blue-700 text-white
 				   disabled:opacity-40 disabled:cursor-not-allowed"
 		>
-			Importieren
+			{$_('import.button')}
 		</button>
 	</div>
 {/if}
 
-<!-- ── Uploading ──────────────────────────────────────────────────────────── -->
+<!-- Uploading -->
 {#if importState === 'uploading'}
 	<div class="max-w-lg flex flex-col items-center gap-4 py-12 text-gray-500 dark:text-slate-400">
-		<!-- Tailwind's animate-spin rotates the element continuously -->
-		<svg class="w-10 h-10 animate-spin text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-			<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-			<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
-		</svg>
-		<p class="text-sm">Datei wird importiert…</p>
+		<!-- animate-spin rotates the icon continuously -->
+		<Icon icon="heroicons:arrow-path" class="w-10 h-10 animate-spin text-blue-600" />
+		<p class="text-sm">{$_('import.uploading')}</p>
 	</div>
 {/if}
 
-<!-- ── Success ────────────────────────────────────────────────────────────── -->
+<!-- Success -->
 {#if importState === 'success' && result}
 	<div class="max-w-lg space-y-4">
 
 		<!-- Header -->
 		<div class="flex items-center gap-3 p-5 rounded-xl bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800">
-			<svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-green-600 dark:text-green-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-			</svg>
+			<Icon icon="heroicons:check-circle" class="w-7 h-7 text-green-600 dark:text-green-400 shrink-0" />
 			<div>
-				<p class="font-semibold text-green-800 dark:text-green-300">Import erfolgreich</p>
-				<p class="text-xs text-green-700 dark:text-green-500">Job-ID: #{result.importJobId}</p>
+				<p class="font-semibold text-green-800 dark:text-green-300">{$_('import.success_title')}</p>
+				<p class="text-xs text-green-700 dark:text-green-500">
+					{$_('import.success_job', { values: { id: result.importJobId } })}
+				</p>
 			</div>
 		</div>
 
-		<!-- Import stats
-			 grid-cols-2 → two equal columns on all screen sizes -->
+		<!-- Import stats — grid-cols-2: two equal columns on all screen sizes -->
 		<div class="grid grid-cols-2 gap-3">
 			<div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-4 shadow-sm text-center">
 				<p class="text-3xl font-bold text-blue-600 dark:text-blue-400">{result.imported}</p>
-				<p class="text-xs text-gray-500 dark:text-slate-400 mt-1">importiert</p>
+				<p class="text-xs text-gray-500 dark:text-slate-400 mt-1">{$_('import.stat_imported')}</p>
 			</div>
 			<div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-4 shadow-sm text-center">
 				<p class="text-3xl font-bold text-gray-400 dark:text-slate-500">{result.skipped}</p>
-				<p class="text-xs text-gray-500 dark:text-slate-400 mt-1">übersprungen (Duplikate)</p>
+				<p class="text-xs text-gray-500 dark:text-slate-400 mt-1">{$_('import.stat_skipped')}</p>
 			</div>
 		</div>
 
 		<!-- Account details -->
 		{#if account}
 			<div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5 shadow-sm space-y-3">
-				<h2 class="font-semibold text-sm text-gray-500 dark:text-slate-400 uppercase tracking-wide">Konto</h2>
+				<h2 class="font-semibold text-sm text-gray-500 dark:text-slate-400 uppercase tracking-wide">
+					{$_('import.account_section')}
+				</h2>
 				<div class="flex items-center justify-between">
 					<div>
 						<p class="font-semibold">{account.name}</p>
@@ -217,7 +211,7 @@
 						{formatCurrency(account.balance, account.currency)}
 					</p>
 				</div>
-				<!-- font-mono gives monospaced font → digits align, IBAN easier to read -->
+				<!-- font-mono: monospaced font makes IBAN easier to read -->
 				<p class="text-xs font-mono text-gray-400 dark:text-slate-500 tracking-wider">{account.iban}</p>
 			</div>
 		{/if}
@@ -228,7 +222,7 @@
 				   border border-gray-300 dark:border-slate-600
 				   hover:bg-gray-100 dark:hover:bg-slate-700"
 		>
-			Weiteren Import starten
+			{$_('import.restart')}
 		</button>
 	</div>
 {/if}

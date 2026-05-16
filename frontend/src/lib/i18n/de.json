@@ -10,10 +10,17 @@
 	},
 	"dashboard": {
 		"title": "Dashboard",
+		"total_balance": "Gesamtsaldo",
 		"accounts": "Konten",
 		"income_month": "Einnahmen (Monat)",
 		"expenses_month": "Ausgaben (Monat)",
-		"overview_placeholder": "Hier erscheint künftig eine Übersicht aller Konten und Salden."
+		"my_accounts": "Meine Konten",
+		"recent_transactions": "Letzte Transaktionen",
+		"show_all": "Alle anzeigen",
+		"no_data_title": "Noch keine Daten vorhanden",
+		"no_data_text": "Importiere einen ING-Kontoauszug, um loszulegen.",
+		"go_to_import": "CSV importieren",
+		"no_recent": "Noch keine Transaktionen vorhanden."
 	},
 	"transactions": {
 		"title": "Transaktionen",

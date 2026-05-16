@@ -10,10 +10,17 @@
 	},
 	"dashboard": {
 		"title": "Dashboard",
+		"total_balance": "Total balance",
 		"accounts": "Accounts",
 		"income_month": "Income (month)",
 		"expenses_month": "Expenses (month)",
-		"overview_placeholder": "An overview of all accounts and balances will appear here."
+		"my_accounts": "My accounts",
+		"recent_transactions": "Recent transactions",
+		"show_all": "Show all",
+		"no_data_title": "No data yet",
+		"no_data_text": "Import an ING bank statement to get started.",
+		"go_to_import": "Import CSV",
+		"no_recent": "No transactions yet."
 	},
 	"transactions": {
 		"title": "Transactions",

@@ -1,15 +1,20 @@
 package de.haushaltsbuch.backend.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
-@NoArgsConstructor
+
 @Entity
 @Table(name = "import_jobs")
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
+@ToString
 public class ImportJob {
 
     @Id
@@ -17,6 +22,7 @@ public class ImportJob {
     private Long id;
 
     private String filename;
+
     private LocalDateTime importedAt;
 
     @Enumerated(EnumType.STRING)

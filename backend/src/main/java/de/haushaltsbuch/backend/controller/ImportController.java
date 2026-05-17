@@ -2,6 +2,7 @@ package de.haushaltsbuch.backend.controller;
 
 import de.haushaltsbuch.backend.dto.ImportResult;
 import de.haushaltsbuch.backend.service.ImportService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,13 +14,10 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping("/api/import")
+@RequiredArgsConstructor
 public class ImportController {
 
     private final ImportService importService;
-
-    public ImportController(ImportService importService) {
-        this.importService = importService;
-    }
 
     /**
      * Imports an ING bank statement CSV file.

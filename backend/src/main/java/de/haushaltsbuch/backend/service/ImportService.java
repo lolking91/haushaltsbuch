@@ -65,7 +65,8 @@ public class ImportService {
 
         account.setBalance(header.balance());
         if (account.getCurrency() == null) {
-            account.setCurrency(header.currency());
+            // ING CSV only exports EUR; valueOf() throws if an unknown currency appears
+            account.setCurrency(Currency.valueOf(header.currency()));
         }
         account = accountRepository.save(account);
 
@@ -105,7 +106,7 @@ public class ImportService {
         account.setName(header.accountName());
         account.setBankName(header.bankName());
         account.setIban(header.iban());
-        account.setCurrency(header.currency());
+        account.setCurrency(Currency.valueOf(header.currency()));
         return account;
     }
 

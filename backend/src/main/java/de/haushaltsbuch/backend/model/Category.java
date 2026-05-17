@@ -1,20 +1,29 @@
 package de.haushaltsbuch.backend.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
-@Data
-@NoArgsConstructor
+
 @Entity
 @Table(name = "categories")
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
+@ToString(exclude = "parentCategory")
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    @Column(nullable = false)
     private String name;
+
     private String color;
 
     @ManyToOne(fetch = FetchType.LAZY)

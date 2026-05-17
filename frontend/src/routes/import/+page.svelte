@@ -155,7 +155,7 @@
 		</div>
 
 		<!-- Import stats — grid-cols-2: two equal columns on all screen sizes -->
-		<div class="grid grid-cols-2 gap-3">
+		<div class="grid grid-cols-3 gap-3">
 			<div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-4 shadow-sm text-center">
 				<p class="text-3xl font-bold text-blue-600 dark:text-blue-400">{result.imported}</p>
 				<p class="text-xs text-gray-500 dark:text-slate-400 mt-1">{$_('import.stat_imported')}</p>
@@ -164,6 +164,10 @@
 				<p class="text-3xl font-bold text-gray-400 dark:text-slate-500">{result.skipped}</p>
 				<p class="text-xs text-gray-500 dark:text-slate-400 mt-1">{$_('import.stat_skipped')}</p>
 			</div>
+			<div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-4 shadow-sm text-center">
+                <p class="text-3xl font-bold text-red-400 dark:text-red-400">{result.errors}</p>
+                <p class="text-xs text-gray-500 dark:text-slate-400 mt-1">{$_('import.stat_errors')}</p>
+            </div>
 		</div>
 
 		<!-- Account details -->

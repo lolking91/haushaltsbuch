@@ -5,15 +5,15 @@ Saldo;2.547,83;EUR
 Zeitraum;01.01.2024 - 31.01.2024
 
 Buchung;Wertstellungsdatum;Auftraggeber/Empfaenger;Buchungstext;Verwendungszweck;Saldo;Waehrung;Betrag;Waehrung
-02.01.2024;02.01.2024;Musterfirma GmbH;Gutschrift;Gehalt Januar 2024;3.500,00;EUR;3.500,00;EUR
+02.01.2024;02.01.2024;Musterfirma GmbH;Gutschrift;Gehalt Januar 2024;3.500,00;EUR;;EUR
 03.01.2024;03.01.2024;Thomas Bergmann;Dauerauftrag;Miete Januar 2024;2.400,00;EUR;-1.100,00;EUR
 05.01.2024;05.01.2024;REWE Markt;Kartenzahlung;;2.347,63;EUR;-52,37;EUR
 06.01.2024;06.01.2024;Netflix International;Lastschrift;Streaming Abo Januar;2.334,64;EUR;-12,99;EUR
-08.01.2024;08.01.2024;Amazon Payments;Lastschrift;Bestellung 305-4782910-3847261;2.270,64;EUR;-64,00;EUR
+08.01.2024;08.01.2024;Amazon Payments;Lastschrift;Bestellung 305-4782910-3847261;;EUR;;EUR
 10.01.2024;10.01.2024;Stadtwerke Musterstadt;Lastschrift;Abschlag Strom und Gas Januar;2.150,64;EUR;-120,00;EUR
 06.01.2024;06.01.2024;Netflix International;Lastschrift;Streaming Abo Januar;2.334,64;EUR;-12,99;EUR
 12.01.2024;12.01.2024;Sparkasse Transfer;Gutschrift;Umbuchung vom Sparkonto;2.650,64;EUR;500,00;EUR
 14.01.2024;14.01.2024;Ristorante da Marco;Kartenzahlung;;2.589,44;EUR;-61,20;EUR
 15.01.2024;15.01.2024;Spotify AB;Lastschrift;Premium Abo Januar;2.580,45;EUR;-8,99;EUR
 18.01.2024;18.01.2024;FitnessFirst GmbH;Lastschrift;Mitgliedsbeitrag Januar;2.549,45;EUR;-31,00;EUR
-31.01.2024;31.01.2024;Musterfirma GmbH;Gutschrift;Praemie Q4 2023;2.547,83;EUR;-1,62;EUR
+;;Musterfirma GmbH;Gutschrift;Praemie Q4 2023;2.547,83;EUR;-1,62;EUR

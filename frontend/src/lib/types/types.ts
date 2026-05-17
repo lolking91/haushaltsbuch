@@ -28,6 +28,7 @@ export type ImportResult = {
 	status: string;
 	imported: number;
 	skipped: number;
+	errors: number;
 	accountId: number;
 };
 

@@ -53,6 +53,7 @@
 		"success_job": "Job-ID: #{id}",
 		"stat_imported": "importiert",
 		"stat_skipped": "übersprungen (Duplikate)",
+		"stat_errors": "fehlerhaft",
 		"account_section": "Konto",
 		"restart": "Weiteren Import starten"
 	},

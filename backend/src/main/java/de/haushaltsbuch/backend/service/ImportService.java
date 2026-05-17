@@ -9,6 +9,8 @@ import de.haushaltsbuch.backend.model.*;
 import de.haushaltsbuch.backend.repository.AccountRepository;
 import de.haushaltsbuch.backend.repository.ImportJobRepository;
 import de.haushaltsbuch.backend.repository.TransactionRepository;
+import jakarta.validation.Validator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,28 +26,21 @@ import java.time.LocalDateTime;
  * <ol>
  *   <li>Parse the CSV file</li>
  *   <li>Find or create the account by IBAN; update the balance from the file header</li>
- *   <li>Persist each transaction, skipping duplicates</li>
+ *   <li>Validate and persist each transaction, skipping duplicates and invalid rows</li>
  *   <li>Create an {@link ImportJob} record for audit purposes</li>
  * </ol>
+ *
  */
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ImportService {
 
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
     private final ImportJobRepository importJobRepository;
     private final IngCsvParser csvParser;
-
-    public ImportService(AccountRepository accountRepository,
-                         TransactionRepository transactionRepository,
-                         ImportJobRepository importJobRepository,
-                         IngCsvParser csvParser) {
-        this.accountRepository = accountRepository;
-        this.transactionRepository = transactionRepository;
-        this.importJobRepository = importJobRepository;
-        this.csvParser = csvParser;
-    }
+    private final Validator validator;
 
     /**
      * Imports an ING bank statement CSV file.
@@ -72,6 +67,7 @@ public class ImportService {
 
         int imported = 0;
         int skipped = 0;
+        int errors = csvFile.parseErrors();
 
         for (IngCsvRecord record : csvFile.records()) {
             String description = record.referenceText().isEmpty() ? null : record.referenceText();
@@ -82,19 +78,28 @@ public class ImportService {
                 continue;
             }
 
-            transactionRepository.save(buildTransaction(record, account, description));
+            Transaction tx = buildTransaction(record, account, description);
+            if (!validator.validate(tx).isEmpty()) {
+                errors++;
+                continue;
+            }
+            transactionRepository.save(tx);
             imported++;
         }
+
+        ImportStatus status = errors == 0 ? ImportStatus.SUCCESS
+                : imported == 0 ? ImportStatus.FAILED
+                : ImportStatus.PARTIAL;
 
         ImportJob job = new ImportJob();
         job.setFilename(filename);
         job.setImportedAt(LocalDateTime.now());
-        job.setStatus(ImportStatus.SUCCESS);
+        job.setStatus(status);
         job.setTransactionCount(imported);
         job.setAccount(account);
         job = importJobRepository.save(job);
 
-        return new ImportResult(job.getId(), "SUCCESS", imported, skipped, account.getId());
+        return new ImportResult(job.getId(), status.name(), imported, skipped, errors, account.getId());
     }
 
     /**

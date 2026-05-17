@@ -1,5 +1,7 @@
 package de.haushaltsbuch.backend.csv;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -40,6 +42,7 @@ import java.util.List;
 @Component
 public class IngCsvParser {
 
+    private static final Logger log = LoggerFactory.getLogger(IngCsvParser.class);
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     private static final String DATA_HEADER_START = "Buchung;";
     // ING exports in Windows-1252, a superset of ISO-8859-1 that covers German umlauts
@@ -57,7 +60,9 @@ public class IngCsvParser {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(input, ENCODING))) {
             lines = reader.lines().toList();
         }
-        return new IngCsvFile(parseHeader(lines), parseRecords(lines));
+        List<IngCsvRecord> records = new ArrayList<>();
+        int parseErrors = parseRecords(lines, records);
+        return new IngCsvFile(parseHeader(lines), records, parseErrors);
     }
 
     private IngCsvHeader parseHeader(List<String> lines) {
@@ -96,9 +101,12 @@ public class IngCsvParser {
         return new IngCsvHeader(iban, accountName, bankName, balance, currency, periodFrom, periodTo);
     }
 
-    private List<IngCsvRecord> parseRecords(List<String> lines) {
-        List<IngCsvRecord> records = new ArrayList<>();
+    /**
+     * Parses the data rows into {@code records} and returns the number of rows that could not be parsed.
+     */
+    private int parseRecords(List<String> lines, List<IngCsvRecord> records) {
         boolean inData = false;
+        int parseErrors = 0;
 
         for (String line : lines) {
             if (line.startsWith(DATA_HEADER_START)) {
@@ -108,7 +116,11 @@ public class IngCsvParser {
             if (!inData || line.isBlank()) continue;
 
             String[] parts = line.split(";", -1);
-            if (parts.length < 9) continue;
+            if (parts.length < 9) {
+                log.warn("Skipping row with too few columns ({}): {}", parts.length, line);
+                parseErrors++;
+                continue;
+            }
 
             try {
                 records.add(new IngCsvRecord(
@@ -121,11 +133,12 @@ public class IngCsvParser {
                         parts[8].trim()                                  // currency
                 ));
             } catch (Exception e) {
-                // skip malformed rows silently
+                log.warn("Skipping malformed row: {} — {}", e.getMessage(), line);
+                parseErrors++;
             }
         }
 
-        return records;
+        return parseErrors;
     }
 
     /**

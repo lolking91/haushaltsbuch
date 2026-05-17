@@ -4,8 +4,17 @@ export type Account = {
 	name: string;
 	bankName: string;
 	iban: string;
-	currency: string;
+	currency: 'EUR';
 	balance: number;
+};
+
+/** Request body for POST /api/accounts. */
+export type AccountRequest = {
+	name: string;
+	bankName: string;
+	iban?: string;
+	currency: 'EUR';
+	balance?: number;
 };
 
 /** A single transaction as returned by GET /api/transactions. */
@@ -20,6 +29,20 @@ export type Transaction = {
 	currency: string;
 	type: 'INCOME' | 'EXPENSE';
 	account: Account;
+};
+
+/** Request body for POST /api/transactions. */
+export type TransactionRequest = {
+	amount: number;
+	currency: string;
+	bookingDate?: string;
+	valueDate: string;
+	description?: string;
+	type: 'INCOME' | 'EXPENSE';
+	counterpartyName: string;
+	bookingText?: string;
+	accountId: number;
+	categoryId?: number;
 };
 
 /** Response returned by POST /api/import/ing. */

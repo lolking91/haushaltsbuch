@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte';
 	import { _ } from 'svelte-i18n';
 	import {
@@ -11,23 +10,20 @@
 		TableRow
 	} from '$lib/components/ui/table/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
-	import type { Account, Transaction } from '$lib/types/types.js';
-	import { accountsApi } from '$lib/api/accounts.js';
-	import { transactionsApi } from '$lib/api/transactions.js';
+	import type { PageData } from './$types.js';
+
+	let { data }: { data: PageData } = $props();
 
 	// --- State ---
 
-	let accounts: Account[] = $state([]);
-	let transactions: Transaction[] = $state([]);
-	let loading = $state(true);
-	let errorMessage = $state('');
-
-	let selectedAccountId: string = $state('');
-	let searchQuery: string = $state('');
+	let transactions = $state(data.transactions);
+	let accounts = $state(data.accounts);
+	let selectedAccountId = $state(data.selectedAccountId);
+	let searchQuery = $state('');
 
 	// --- Derived ---
 
-	let filtered: Transaction[] = $derived.by(() => {
+	let filtered = $derived.by(() => {
 		let result = transactions;
 
 		if (selectedAccountId) {
@@ -45,21 +41,6 @@
 		}
 
 		return result;
-	});
-
-	// --- Data loading ---
-
-	onMount(async () => {
-		try {
-			[accounts, transactions] = await Promise.all([
-				accountsApi.getAll(),
-				transactionsApi.getAll()
-			]);
-		} catch (e) {
-			errorMessage = e instanceof Error ? e.message : String(e);
-		} finally {
-			loading = false;
-		}
 	});
 
 	// --- Formatting helpers ---
@@ -121,19 +102,7 @@
 	<div
 		class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden"
 	>
-		{#if loading}
-			<div class="flex items-center justify-center gap-3 p-12 text-gray-400 dark:text-slate-500">
-				<Icon icon="heroicons:arrow-path" class="w-5 h-5 animate-spin text-blue-600" />
-				<span class="text-sm">{$_('transactions.loading')}</span>
-			</div>
-		{:else if errorMessage}
-			<div
-				class="flex items-start gap-3 m-4 p-4 rounded-xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400"
-			>
-				<Icon icon="heroicons:exclamation-circle" class="w-5 h-5 mt-0.5 shrink-0" />
-				<p class="text-sm">{errorMessage}</p>
-			</div>
-		{:else if filtered.length === 0}
+		{#if filtered.length === 0}
 			<div class="p-12 text-center text-gray-400 dark:text-slate-500 text-sm">
 				{#if transactions.length === 0}
 					{$_('transactions.empty_no_import')}

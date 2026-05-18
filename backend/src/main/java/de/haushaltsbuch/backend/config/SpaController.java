@@ -10,7 +10,8 @@ public class SpaController {
     @RequestMapping(value = {"/", "/{path:[^\\.]*}", "/{path:[^\\.]*}/**"})
     public String forward(HttpServletRequest request) {
         String path = request.getRequestURI();
-        if (path.startsWith("/api/")) {
+        // Exclude API routes regardless of any servlet context-path prefix (e.g. /banking/api/...)
+        if (path.contains("/api/")) {
             return null;
         }
         return "forward:/index.html";

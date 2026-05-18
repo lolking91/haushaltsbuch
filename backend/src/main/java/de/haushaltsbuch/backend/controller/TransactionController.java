@@ -25,6 +25,19 @@ public class TransactionController {
     private final TransactionService transactionService;
 
     /**
+     * Returns a single transaction by ID.
+     *
+     * @param id the transaction ID
+     * @return {@code 200 OK} with the transaction, or {@code 404 Not Found}
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<Transaction> getById(@PathVariable Long id) {
+        return transactionRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    /**
      * Returns all transactions, optionally filtered by account.
      *
      * @param accountId optional account filter

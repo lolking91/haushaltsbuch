@@ -57,6 +57,25 @@
 		"account_section": "Account",
 		"restart": "Start another import"
 	},
+	"transaction_detail": {
+		"back": "Back to list",
+		"section_bank_data": "Bank data",
+		"section_edit": "Edit details",
+		"field_id": "ID",
+		"field_booking_date": "Booking date",
+		"field_value_date": "Value date",
+		"field_amount": "Amount",
+		"field_type": "Type",
+		"field_account": "Account",
+		"field_counterparty": "Payee / Payer",
+		"field_description": "Purpose",
+		"field_booking_text": "Booking text",
+		"read_only_hint": "These fields originate from the bank import and cannot be edited.",
+		"btn_save": "Save",
+		"btn_reset": "Reset",
+		"save_success": "Changes saved.",
+		"save_error": "Error saving changes."
+	},
 	"reports": {
 		"title": "Reports",
 		"expenses_by_category": "Expenses by category",

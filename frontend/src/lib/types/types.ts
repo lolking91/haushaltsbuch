@@ -45,6 +45,13 @@ export type TransactionRequest = {
 	categoryId?: number;
 };
 
+/** Request body for PATCH /api/transactions/{id} — only editable fields. */
+export type TransactionUpdateRequest = {
+	counterpartyName?: string | null;
+	description?: string | null;
+	bookingText?: string | null;
+};
+
 /** Response returned by POST /api/import/ing. */
 export type ImportResult = {
 	importJobId: number;

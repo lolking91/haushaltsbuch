@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import { _ } from 'svelte-i18n';
+	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 	import {
 		Table,
 		TableBody,
@@ -124,7 +126,10 @@
 				</TableHeader>
 				<TableBody>
 					{#each filtered as tx (tx.id)}
-						<TableRow>
+						<TableRow
+							class="cursor-pointer"
+							onclick={() => goto(`${base}/transactions/${tx.id}`)}
+						>
 							<TableCell class="whitespace-nowrap text-gray-500 dark:text-slate-400">
 								{formatDate(tx.bookingDate)}
 							</TableCell>

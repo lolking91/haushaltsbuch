@@ -1,6 +1,7 @@
 package de.haushaltsbuch.backend.service;
 
 import de.haushaltsbuch.backend.dto.TransactionRequest;
+import de.haushaltsbuch.backend.dto.TransactionUpdateRequest;
 import de.haushaltsbuch.backend.exception.NotFoundException;
 import de.haushaltsbuch.backend.model.Account;
 import de.haushaltsbuch.backend.model.Category;
@@ -56,5 +57,24 @@ public class TransactionService {
                 .build();
 
         return transactionRepository.save(tx);
+    }
+
+    /**
+     * Updates editable fields of an existing transaction.
+     *
+     * @param id      ID of the transaction to update, taken from the URL path
+     * @param request fields to update; {@code null} values clear the respective field
+     * @return the updated transaction
+     * @throws NotFoundException if no transaction with the given ID exists
+     */
+    public Transaction update(Long id, TransactionUpdateRequest request) {
+        Transaction transaction = transactionRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Transaction", id));
+
+        transaction.setCounterpartyName(request.counterpartyName());
+        transaction.setDescription(request.description());
+        transaction.setBookingText(request.bookingText());
+
+        return transactionRepository.save(transaction);
     }
 }

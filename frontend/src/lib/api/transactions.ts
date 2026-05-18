@@ -1,4 +1,4 @@
-import type { Transaction, TransactionRequest } from '$lib/types/types.js';
+import type { Transaction, TransactionRequest, TransactionUpdateRequest } from '$lib/types/types.js';
 import { api } from './client.js';
 
 /** API service for transaction-related endpoints. */
@@ -20,6 +20,14 @@ export const transactionsApi = {
 		api.request(
 			'/api/transactions',
 			{ method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(request) },
+			customFetch
+		),
+
+	/** Updates editable fields of an existing transaction. */
+	update: (id: number, request: TransactionUpdateRequest, customFetch?: typeof fetch): Promise<Transaction> =>
+		api.request(
+			`/api/transactions/${id}`,
+			{ method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(request) },
 			customFetch
 		)
 };

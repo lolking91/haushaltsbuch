@@ -38,6 +38,14 @@ export function formatDateShort(dateStr: string): string {
 }
 
 /**
+ * Generates a random hex color string, e.g. "#a3f0c2".
+ * Useful as a default value for color pickers.
+ */
+export function randomColor(): string {
+	return '#' + Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, '0');
+}
+
+/**
  * Formats an IBAN with a space every four characters for readability.
  * Returns "—" for null/undefined values.
  *

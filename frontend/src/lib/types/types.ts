@@ -62,5 +62,27 @@ export type ImportResult = {
 	accountId: number;
 };
 
+/** Compact parent info nested inside a {@link Category} response. */
+export type CategoryParent = {
+	id: number;
+	name: string;
+	color: string;
+};
+
+/** A category as returned by GET /api/categories. */
+export type Category = {
+	id: number;
+	name: string;
+	color: string;
+	parent: CategoryParent | null;
+};
+
+/** Request body for POST /api/categories. */
+export type CategoryRequest = {
+	name: string;
+	color: string; // Hex color code, e.g. "#FF5733"
+	parentCategoryId: number | null;
+};
+
 /** UI state of the CSV import page. */
 export type ImportState = 'idle' | 'uploading' | 'success' | 'error';

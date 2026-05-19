@@ -4,6 +4,8 @@
 	import Icon from '@iconify/svelte';
 	import { _ } from 'svelte-i18n';
 	import { Badge } from '$lib/components/ui/badge/index.js';
+	import { Amount } from '$lib/components/ui/amount/index.js';
+	import { formatCurrency, formatDateShort, formatIban } from '$lib/utils/format.js';
 	import type { Account, Transaction } from '$lib/types/types.js';
 	import { accountsApi } from '$lib/api/accounts.js';
 	import { transactionsApi } from '$lib/api/transactions.js';
@@ -60,22 +62,6 @@
 		}
 	});
 
-	// --- Formatting helpers ---
-
-	/** Formats an amount as a German-locale currency string. */
-	function formatCurrency(amount: number, currency = 'EUR'): string {
-		return new Intl.NumberFormat('de-DE', { style: 'currency', currency }).format(amount);
-	}
-
-	/** Short date for recent transaction list, e.g. "14. Mai". */
-	function formatDateShort(dateStr: string): string {
-		return new Date(dateStr).toLocaleDateString('de-DE', { day: 'numeric', month: 'short' });
-	}
-
-	/** Inserts a space every 4 characters for IBAN readability. */
-	function formatIban(iban: string | null): string {
-		return iban?.replace(/(.{4})/g, '$1 ').trim() ?? '—';
-	}
 </script>
 
 <h1 class="text-2xl font-bold mb-6">{$_('dashboard.title')}</h1>
@@ -235,10 +221,7 @@
 									<Badge variant={tx.type === 'INCOME' ? 'income' : 'expense'} class="hidden sm:inline-flex">
 										{tx.type === 'INCOME' ? $_('transactions.badge_income') : $_('transactions.badge_expense')}
 									</Badge>
-									<span class="text-sm font-semibold tabular-nums
-										{tx.type === 'INCOME' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}">
-										{formatCurrency(tx.amount, tx.currency)}
-									</span>
+									<Amount amount={tx.amount} currency={tx.currency} type={tx.type} class="text-sm font-semibold" />
 								</div>
 							</li>
 						{/each}

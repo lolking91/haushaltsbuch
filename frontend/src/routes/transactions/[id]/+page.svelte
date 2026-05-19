@@ -3,6 +3,8 @@
 	import { base } from '$app/paths';
 	import { _ } from 'svelte-i18n';
 	import { Badge } from '$lib/components/ui/badge/index.js';
+	import { Amount } from '$lib/components/ui/amount/index.js';
+	import { formatDate } from '$lib/utils/format.js';
 	import { transactionsApi } from '$lib/api/transactions.js';
 	import type { PageData } from './$types.js';
 
@@ -36,22 +38,6 @@
 		form.description !== saved.description ||
 		form.bookingText !== saved.bookingText
 	);
-
-	// --- Formatting ---
-
-	/** Formats a date string (YYYY-MM-DD) as a short German locale date. */
-	function formatDate(dateStr: string): string {
-		return new Date(dateStr).toLocaleDateString('de-DE', {
-			day: '2-digit',
-			month: '2-digit',
-			year: 'numeric'
-		});
-	}
-
-	/** Formats a monetary amount in the given currency using German locale. */
-	function formatAmount(amount: number, currency = 'EUR'): string {
-		return new Intl.NumberFormat('de-DE', { style: 'currency', currency }).format(amount);
-	}
 
 	// --- Actions ---
 
@@ -116,14 +102,7 @@
 					? $_('transactions.badge_income')
 					: $_('transactions.badge_expense')}
 			</Badge>
-			<span
-				class="text-2xl font-bold tabular-nums
-				       {transaction.type === 'INCOME'
-					? 'text-green-600 dark:text-green-400'
-					: 'text-red-600 dark:text-red-400'}"
-			>
-				{formatAmount(transaction.amount, transaction.currency)}
-			</span>
+			<Amount amount={transaction.amount} currency={transaction.currency} type={transaction.type} class="text-2xl font-bold" />
 		</div>
 	</div>
 
@@ -164,11 +143,8 @@
 					<dt class="text-xs font-medium text-gray-400 dark:text-slate-500">
 						{$_('transaction_detail.field_amount')}
 					</dt>
-					<dd class="mt-0.5 text-sm font-medium tabular-nums
-					          {transaction.type === 'INCOME'
-						? 'text-green-600 dark:text-green-400'
-						: 'text-red-600 dark:text-red-400'}">
-						{formatAmount(transaction.amount, transaction.currency)}
+					<dd class="mt-0.5">
+						<Amount amount={transaction.amount} currency={transaction.currency} type={transaction.type} class="text-sm font-medium" />
 					</dd>
 				</div>
 

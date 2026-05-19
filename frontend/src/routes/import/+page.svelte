@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import { _ } from 'svelte-i18n';
+	import { formatCurrency } from '$lib/utils/format.js';
 	import type { Account, ImportResult, ImportState } from '$lib/types/types.js';
 	import { accountsApi } from '$lib/api/accounts.js';
 	import { importApi } from '$lib/api/import.js';
@@ -66,13 +67,6 @@
 		errorMessage = '';
 	}
 
-	// --- Formatting helpers ---
-
-	// Intl.NumberFormat formats numbers according to locale:
-	// 'de-DE' uses dots as thousands separator and comma as decimal → "14.514,69 €"
-	function formatCurrency(amount: number, currency = 'EUR') {
-		return new Intl.NumberFormat('de-DE', { style: 'currency', currency }).format(amount);
-	}
 </script>
 
 <h1 class="text-2xl font-bold mb-6">{$_('import.title')}</h1>

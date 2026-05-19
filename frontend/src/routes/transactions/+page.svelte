@@ -12,6 +12,8 @@
 		TableRow
 	} from '$lib/components/ui/table/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
+	import { Amount } from '$lib/components/ui/amount/index.js';
+	import { formatCurrency, formatDate } from '$lib/utils/format.js';
 	import type { PageData } from './$types.js';
 
 	let { data }: { data: PageData } = $props();
@@ -45,21 +47,6 @@
 		return result;
 	});
 
-	// --- Formatting helpers ---
-
-	/** Formats a date string (YYYY-MM-DD) as a short locale date, e.g. "14.05.2026". */
-	function formatDate(dateStr: string): string {
-		return new Date(dateStr).toLocaleDateString('de-DE', {
-			day: '2-digit',
-			month: '2-digit',
-			year: 'numeric'
-		});
-	}
-
-	/** Formats a monetary amount in the given currency using German locale. */
-	function formatAmount(amount: number, currency = 'EUR'): string {
-		return new Intl.NumberFormat('de-DE', { style: 'currency', currency }).format(amount);
-	}
 </script>
 
 <div class="space-y-4">
@@ -154,13 +141,8 @@
 										: $_('transactions.badge_expense')}
 								</Badge>
 							</TableCell>
-							<TableCell
-								class="text-right font-medium tabular-nums whitespace-nowrap
-									   {tx.type === 'INCOME'
-									? 'text-green-600 dark:text-green-400'
-									: 'text-red-600 dark:text-red-400'}"
-							>
-								{formatAmount(tx.amount, tx.currency)}
+							<TableCell class="text-right">
+								<Amount amount={tx.amount} currency={tx.currency} type={tx.type} class="font-medium" />
 							</TableCell>
 						</TableRow>
 					{/each}

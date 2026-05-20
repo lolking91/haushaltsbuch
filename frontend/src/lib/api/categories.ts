@@ -25,5 +25,9 @@ export const categoriesApi = {
 			`/api/categories/${id}`,
 			{ method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(request) },
 			customFetch
-		)
+		),
+
+	/** Deletes a category by ID. */
+	delete: (id: number, customFetch?: typeof fetch): Promise<void> =>
+		api.request(`/api/categories/${id}`, { method: 'DELETE' }, customFetch)
 };

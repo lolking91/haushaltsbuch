@@ -2,3 +2,14 @@
 
 /* class-basierter Dark Mode: dark:* greift wenn ein Elternelement .dark hat */
 @custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  /*
+   * Tailwind's Preflight resets the cursor on <button> to "default".
+   * Restore the expected pointer for all interactive buttons.
+   * disabled:cursor-not-allowed on individual buttons overrides this as needed.
+   */
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+}

@@ -68,4 +68,16 @@ public class CategoryController {
                                                    @Valid @RequestBody CategoryRequest request) {
         return ResponseEntity.ok(categoryService.update(id, request));
     }
+
+    /**
+     * Deletes a category by ID.
+     *
+     * @param id the category ID from the URL path
+     * @return {@code 204 No Content} on success, or {@code 404 Not Found}
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        categoryService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

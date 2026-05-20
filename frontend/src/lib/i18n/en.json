@@ -85,7 +85,12 @@
 		"empty_cta": "Create first category",
 		"root_badge": "Root category",
 		"subcategories": "Subcategories",
-		"no_subcategories": "No subcategories"
+		"no_subcategories": "No subcategories",
+		"delete_has_children": "Cannot delete while subcategories exist",
+		"delete_confirm": "Really delete?",
+		"delete_cancel": "Cancel",
+		"delete_yes": "Delete",
+		"delete_error": "Error deleting category"
 	},
 	"category_create": {
 		"title": "New category",
@@ -106,7 +111,13 @@
 		"btn_save": "Save",
 		"btn_reset": "Reset",
 		"save_success": "Changes saved.",
-		"save_error": "Error saving changes."
+		"save_error": "Error saving changes.",
+		"btn_delete": "Delete category",
+		"delete_has_children": "Root categories with subcategories cannot be deleted.",
+		"delete_confirm_text": "This action cannot be undone.",
+		"delete_confirm_yes": "Yes, delete",
+		"delete_cancel": "Cancel",
+		"delete_error": "Error deleting category."
 	},
 	"reports": {
 		"title": "Reports",

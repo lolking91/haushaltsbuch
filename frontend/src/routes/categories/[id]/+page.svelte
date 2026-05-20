@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import Icon from '@iconify/svelte';
 	import { _ } from 'svelte-i18n';
@@ -58,6 +59,33 @@
 		form.color = saved.color;
 		form.parentCategoryId = saved.parentCategoryId;
 		saveStatus = 'idle';
+	}
+
+	// --- Delete state ------------------------------------------------------------
+
+	/**
+	 * Whether the category has children — determined from the preloaded list.
+	 * Root categories with children cannot be deleted.
+	 */
+	let hasChildren = $derived(
+		data.categories.some((c) => c.parent?.id === category.id)
+	);
+
+	let confirmingDelete = $state(false);
+	let deleteError = $state('');
+	let deleting = $state(false);
+
+	async function deleteCategory() {
+		deleting = true;
+		deleteError = '';
+		try {
+			await categoriesApi.delete(category.id);
+			await goto(`${base}/categories`);
+		} catch {
+			deleteError = $_('category_detail.delete_error');
+			deleting = false;
+			confirmingDelete = false;
+		}
 	}
 
 	/** Persists editable fields via PATCH and updates the saved snapshot on success. */
@@ -233,6 +261,86 @@
 			</div>
 
 		</form>
+	</div>
+
+	<!-- Delete section -->
+	<div class="max-w-lg">
+		{#if hasChildren}
+			<!-- Disabled state: explain why delete is blocked -->
+			<div class="flex items-start gap-3 p-4 rounded-xl
+			            bg-amber-50 dark:bg-amber-950/20
+			            border border-amber-200 dark:border-amber-800">
+				<Icon icon="heroicons:exclamation-triangle"
+				      class="w-5 h-5 text-amber-500 dark:text-amber-400 shrink-0 mt-0.5" />
+				<p class="text-sm text-amber-700 dark:text-amber-300">
+					{$_('category_detail.delete_has_children')}
+				</p>
+			</div>
+
+		{:else if confirmingDelete}
+			<!-- Confirmation card -->
+			<div class="rounded-xl border border-red-300 dark:border-red-800
+			            bg-red-50 dark:bg-red-950/20 p-5 space-y-4">
+				<div class="flex items-start gap-3">
+					<Icon icon="heroicons:exclamation-circle"
+					      class="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+					<div>
+						<p class="font-semibold text-sm text-red-700 dark:text-red-300">
+							{$_('categories.delete_confirm')}
+						</p>
+						<p class="text-sm text-red-600 dark:text-red-400 mt-0.5">
+							{$_('category_detail.delete_confirm_text')}
+						</p>
+					</div>
+				</div>
+
+				{#if deleteError}
+					<p class="text-xs text-red-600 dark:text-red-400 flex items-center gap-1">
+						<Icon icon="heroicons:exclamation-circle" class="w-4 h-4" />
+						{deleteError}
+					</p>
+				{/if}
+
+				<div class="flex gap-2 justify-end">
+					<button
+						onclick={() => (confirmingDelete = false)}
+						disabled={deleting}
+						class="px-4 py-2 rounded-lg text-sm border border-gray-300 dark:border-slate-600
+						       text-gray-600 dark:text-slate-300
+						       hover:bg-white dark:hover:bg-slate-700 transition-colors
+						       disabled:opacity-40 disabled:cursor-not-allowed"
+					>
+						{$_('category_detail.delete_cancel')}
+					</button>
+					<button
+						onclick={deleteCategory}
+						disabled={deleting}
+						class="px-4 py-2 rounded-lg text-sm font-medium
+						       bg-red-600 hover:bg-red-700 text-white transition-colors
+						       disabled:opacity-40 disabled:cursor-not-allowed
+						       flex items-center gap-1.5"
+					>
+						{#if deleting}
+							<Icon icon="heroicons:arrow-path" class="w-4 h-4 animate-spin" />
+						{/if}
+						{$_('category_detail.delete_confirm_yes')}
+					</button>
+				</div>
+			</div>
+
+		{:else}
+			<!-- Delete trigger button -->
+			<button
+				onclick={() => (confirmingDelete = true)}
+				class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium
+				       border border-red-300 dark:border-red-800
+				       text-red-600 dark:text-red-400
+				       hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
+			>
+				<Icon icon="heroicons:trash" class="w-4 h-4" />
+				{$_('category_detail.btn_delete')}
+			</button>
+		{/if}
 	</div>
 
 </div>

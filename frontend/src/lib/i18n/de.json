@@ -85,7 +85,12 @@
 		"empty_cta": "Erste Kategorie anlegen",
 		"root_badge": "Hauptkategorie",
 		"subcategories": "Unterkategorien",
-		"no_subcategories": "Keine Unterkategorien"
+		"no_subcategories": "Keine Unterkategorien",
+		"delete_has_children": "Kann nicht gelöscht werden, solange Unterkategorien vorhanden sind",
+		"delete_confirm": "Wirklich löschen?",
+		"delete_cancel": "Abbrechen",
+		"delete_yes": "Löschen",
+		"delete_error": "Fehler beim Löschen"
 	},
 	"category_create": {
 		"title": "Neue Kategorie",
@@ -106,7 +111,13 @@
 		"btn_save": "Speichern",
 		"btn_reset": "Zurücksetzen",
 		"save_success": "Änderungen gespeichert.",
-		"save_error": "Fehler beim Speichern."
+		"save_error": "Fehler beim Speichern.",
+		"btn_delete": "Kategorie löschen",
+		"delete_has_children": "Hauptkategorien mit Unterkategorien können nicht gelöscht werden.",
+		"delete_confirm_text": "Diese Aktion kann nicht rückgängig gemacht werden.",
+		"delete_confirm_yes": "Ja, löschen",
+		"delete_cancel": "Abbrechen",
+		"delete_error": "Fehler beim Löschen."
 	},
 	"reports": {
 		"title": "Auswertungen",

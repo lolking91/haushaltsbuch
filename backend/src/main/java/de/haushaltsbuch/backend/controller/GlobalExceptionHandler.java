@@ -1,5 +1,6 @@
 package de.haushaltsbuch.backend.controller;
 
+import de.haushaltsbuch.backend.exception.ConflictException;
 import de.haushaltsbuch.backend.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,5 +23,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<String> handleNotFound(NotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    /**
+     * Maps {@link ConflictException} to {@code 409 Conflict}.
+     *
+     * @param ex the exception containing the conflict description
+     * @return response with the exception message as plain-text body
+     */
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<String> handleConflict(ConflictException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 }

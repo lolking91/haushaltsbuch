@@ -2,6 +2,7 @@ package de.haushaltsbuch.backend.service;
 
 import de.haushaltsbuch.backend.dto.CategoryRequest;
 import de.haushaltsbuch.backend.dto.CategoryResponse;
+import de.haushaltsbuch.backend.exception.ConflictException;
 import de.haushaltsbuch.backend.exception.NotFoundException;
 import de.haushaltsbuch.backend.model.Category;
 import de.haushaltsbuch.backend.repository.CategoryRepository;
@@ -84,6 +85,30 @@ public class CategoryService {
         category.setParentCategory(resolveParent(request.parentCategoryId()));
 
         return toResponse(categoryRepository.save(category));
+    }
+
+    /**
+     * Deletes a category by ID.
+     *
+     * <p>Root categories that still have subcategories cannot be deleted — the caller
+     * must reassign or delete the children first. This prevents orphaned subcategories
+     * with a dangling parent reference.
+     *
+     * @param id ID of the category to delete
+     * @throws NotFoundException  if no category with the given ID exists
+     * @throws ConflictException  if the category still has subcategories
+     */
+    public void delete(Long id) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Category", id));
+
+        if (categoryRepository.existsByParentCategoryId(id)) {
+            throw new ConflictException(
+                    "Category " + id + " cannot be deleted while it still has subcategories."
+            );
+        }
+
+        categoryRepository.delete(category);
     }
 
     /**

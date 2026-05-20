@@ -6,11 +6,12 @@ export const importApi = {
 	/**
 	 * Uploads an ING CSV file and returns the import result.
 	 *
-	 * @param file  The CSV file selected by the user
+	 * @param file        The CSV file selected by the user
+	 * @param applyRules  When true, active category rules are applied to each imported transaction
 	 */
-	importIng: (file: File): Promise<ImportResult> => {
+	importIng: (file: File, applyRules = false): Promise<ImportResult> => {
 		const body = new FormData();
 		body.append('file', file);
-		return api.request('/api/import/ing', { method: 'POST', body });
+		return api.request(`/api/import/ing?applyRules=${applyRules}`, { method: 'POST', body });
 	}
 };

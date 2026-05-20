@@ -11,6 +11,7 @@
 	let importState: ImportState = $state('idle');
 	let selectedFile: File | null = $state(null);
 	let isDragging = $state(false);
+	let applyRules = $state(false);
 	let result: ImportResult | null = $state(null);
 	let account: Account | null = $state(null);
 	let errorMessage = $state('');
@@ -47,7 +48,7 @@
 		errorMessage = '';
 
 		try {
-			result = await importApi.importIng(selectedFile);
+			result = await importApi.importIng(selectedFile, applyRules);
 
 			// Load account details for the result summary
 			account = await accountsApi.getById(result.accountId);
@@ -111,6 +112,12 @@
 			</div>
 		{/if}
 
+		<!-- Apply rules toggle -->
+		<label class="flex items-center gap-3 cursor-pointer select-none">
+			<input type="checkbox" bind:checked={applyRules} class="w-4 h-4 rounded accent-blue-600" />
+			<span class="text-sm text-gray-700 dark:text-slate-300">{$_('import.apply_rules')}</span>
+		</label>
+
 		<!-- Upload button -->
 		<button
 			onclick={upload}
@@ -148,8 +155,8 @@
 			</div>
 		</div>
 
-		<!-- Import stats — grid-cols-2: two equal columns on all screen sizes -->
-		<div class="grid grid-cols-3 gap-3">
+		<!-- Import stats -->
+		<div class="grid gap-3" class:grid-cols-3={!applyRules} class:grid-cols-4={applyRules}>
 			<div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-4 shadow-sm text-center">
 				<p class="text-3xl font-bold text-blue-600 dark:text-blue-400">{result.imported}</p>
 				<p class="text-xs text-gray-500 dark:text-slate-400 mt-1">{$_('import.stat_imported')}</p>
@@ -159,9 +166,15 @@
 				<p class="text-xs text-gray-500 dark:text-slate-400 mt-1">{$_('import.stat_skipped')}</p>
 			</div>
 			<div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-4 shadow-sm text-center">
-                <p class="text-3xl font-bold text-red-400 dark:text-red-400">{result.errors}</p>
-                <p class="text-xs text-gray-500 dark:text-slate-400 mt-1">{$_('import.stat_errors')}</p>
-            </div>
+				<p class="text-3xl font-bold text-red-400 dark:text-red-400">{result.errors}</p>
+				<p class="text-xs text-gray-500 dark:text-slate-400 mt-1">{$_('import.stat_errors')}</p>
+			</div>
+			{#if applyRules}
+				<div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-4 shadow-sm text-center">
+					<p class="text-3xl font-bold text-green-600 dark:text-green-400">{result.categorized}</p>
+					<p class="text-xs text-gray-500 dark:text-slate-400 mt-1">{$_('import.stat_categorized')}</p>
+				</div>
+			{/if}
 		</div>
 
 		<!-- Account details -->

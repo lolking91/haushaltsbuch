@@ -60,6 +60,54 @@ export type ImportResult = {
 	skipped: number;
 	errors: number;
 	accountId: number;
+	/** Number of imported transactions that were auto-categorized; 0 when applyRules was false. */
+	categorized: number;
+};
+
+/** Which transaction field a rule condition is evaluated against. */
+export type ConditionField = 'COUNTERPARTY_NAME' | 'DESCRIPTION' | 'TRANSACTION_TYPE';
+
+/** How the condition value is compared to the transaction field. */
+export type ConditionMatcher = 'EXACT' | 'CONTAINS';
+
+/** A single condition within a category rule as returned by the API. */
+export type RuleCondition = {
+	id: number;
+	field: ConditionField;
+	matcher: ConditionMatcher;
+	value: string;
+};
+
+/** A category rule as returned by GET /api/category-rules. */
+export type CategoryRule = {
+	id: number;
+	categoryId: number;
+	categoryName: string;
+	name: string | null;
+	priority: number;
+	active: boolean;
+	conditions: RuleCondition[];
+};
+
+/** Request body for POST/PUT /api/category-rules — single condition. */
+export type RuleConditionRequest = {
+	field: ConditionField;
+	matcher: ConditionMatcher;
+	value: string;
+};
+
+/** Request body for POST/PUT /api/category-rules. */
+export type CategoryRuleRequest = {
+	categoryId: number;
+	name: string | null;
+	priority: number;
+	active: boolean;
+	conditions: RuleConditionRequest[];
+};
+
+/** Result of POST /api/category-rules/apply. */
+export type ApplyRulesResult = {
+	categorized: number;
 };
 
 /** Compact parent info nested inside a {@link Category} response. */

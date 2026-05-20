@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Collections;
 
 /**
  * Handles the import of bank statement CSV files.
@@ -41,16 +42,19 @@ public class ImportService {
     private final ImportJobRepository importJobRepository;
     private final IngCsvParser csvParser;
     private final Validator validator;
+    private final CategoryRuleService categoryRuleService;
 
     /**
      * Imports an ING bank statement CSV file.
      *
-     * @param filename the original file name, stored on the {@link ImportJob}
-     * @param input    the CSV input stream
-     * @return a summary of the import with counts for imported and skipped transactions
+     * @param filename   the original file name, stored on the {@link ImportJob}
+     * @param input      the CSV input stream
+     * @param applyRules when {@code true}, active category rules are applied to each
+     *                   newly imported transaction immediately after saving
+     * @return a summary of the import with counts for imported, skipped and categorized transactions
      * @throws IOException if the input stream cannot be read
      */
-    public ImportResult importIngCsv(String filename, InputStream input) throws IOException {
+    public ImportResult importIngCsv(String filename, InputStream input, boolean applyRules) throws IOException {
 
         IngCsvFile csvFile = csvParser.parse(input);
         IngCsvHeader header = csvFile.header();
@@ -65,9 +69,15 @@ public class ImportService {
         }
         account = accountRepository.save(account);
 
+        // Load rules once for the entire batch to avoid per-transaction DB round-trips
+        var activeRules = applyRules
+                ? categoryRuleService.loadActiveRules()
+                : Collections.<CategoryRule>emptyList();
+
         int imported = 0;
         int skipped = 0;
         int errors = csvFile.parseErrors();
+        int categorized = 0;
 
         for (IngCsvRecord record : csvFile.records()) {
             String description = record.referenceText().isEmpty() ? null : record.referenceText();
@@ -83,6 +93,11 @@ public class ImportService {
                 errors++;
                 continue;
             }
+
+            if (applyRules && categoryRuleService.categorize(tx, activeRules)) {
+                categorized++;
+            }
+
             transactionRepository.save(tx);
             imported++;
         }
@@ -99,7 +114,7 @@ public class ImportService {
         job.setAccount(account);
         job = importJobRepository.save(job);
 
-        return new ImportResult(job.getId(), status.name(), imported, skipped, errors, account.getId());
+        return new ImportResult(job.getId(), status.name(), imported, skipped, errors, account.getId(), categorized);
     }
 
     /**

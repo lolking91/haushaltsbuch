@@ -11,6 +11,7 @@
 		{ href: `${base}/`, label: $_('nav.dashboard') },
 		{ href: `${base}/transactions`, label: $_('nav.transactions') },
 		{ href: `${base}/categories`, label: $_('nav.categories') },
+		{ href: `${base}/category-rules`, label: $_('nav.rules') },
 		{ href: `${base}/import`, label: $_('nav.import') },
 		{ href: `${base}/auswertungen`, label: $_('nav.reports') }
 	]);

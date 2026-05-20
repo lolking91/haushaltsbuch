@@ -14,4 +14,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     boolean existsByAccountAndBookingDateAndAmountAndDescription(
             Account account, LocalDate bookingDate, BigDecimal amount, String description);
+
+    /** Returns all transactions that have not been assigned a category yet. */
+    List<Transaction> findAllByCategoryIsNull();
 }

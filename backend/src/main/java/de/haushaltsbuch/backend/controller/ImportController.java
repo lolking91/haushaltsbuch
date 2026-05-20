@@ -22,20 +22,24 @@ public class ImportController {
     /**
      * Imports an ING bank statement CSV file.
      *
-     * <p>{@code POST /banking/api/import/ing}
+     * <p>{@code POST /api/import/ing}
      * <p>Request body: {@code multipart/form-data} with a {@code file} field containing the CSV.
      *
-     * @param file the uploaded CSV file
-     * @return import summary with counts for imported and skipped transactions
+     * @param file       the uploaded CSV file
+     * @param applyRules when {@code true}, active category rules are applied to each
+     *                   newly imported transaction; defaults to {@code false}
+     * @return import summary with counts for imported, skipped and categorized transactions
      * @throws IOException if the file cannot be read
      */
     @PostMapping("/ing")
     public ResponseEntity<ImportResult> importIng(
-            @RequestParam("file") MultipartFile file) throws IOException {
+            @RequestParam("file") MultipartFile file,
+            @RequestParam(value = "applyRules", defaultValue = "false") boolean applyRules) throws IOException {
 
         ImportResult result = importService.importIngCsv(
                 file.getOriginalFilename(),
-                file.getInputStream()
+                file.getInputStream(),
+                applyRules
         );
         return ResponseEntity.ok(result);
     }

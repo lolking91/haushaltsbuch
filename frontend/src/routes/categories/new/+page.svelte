@@ -55,7 +55,7 @@
 		       hover:text-gray-900 dark:hover:text-white transition-colors"
 	>
 		<Icon icon="heroicons:arrow-left" class="w-4 h-4" />
-		{$_('category_create.back')}
+		{$_('common.back_to_overview')}
 	</a>
 
 	<!-- Page header -->
@@ -81,7 +81,7 @@
 			<!-- Name -->
 			<div>
 				<label for="name" class="block text-xs font-medium text-gray-500 dark:text-slate-400 mb-1">
-					{$_('category_detail.field_name')}
+					{$_('categories.field_name')}
 				</label>
 				<input
 					id="name"
@@ -98,7 +98,7 @@
 			<!-- Color -->
 			<div>
 				<label for="color" class="block text-xs font-medium text-gray-500 dark:text-slate-400 mb-1">
-					{$_('category_detail.field_color')}
+					{$_('categories.field_color')}
 				</label>
 				<div class="flex items-center gap-3">
 					<input
@@ -117,7 +117,7 @@
 			<!-- Parent category -->
 			<div>
 				<label for="parent" class="block text-xs font-medium text-gray-500 dark:text-slate-400 mb-1">
-					{$_('category_detail.field_parent')}
+					{$_('categories.field_parent')}
 				</label>
 				<select
 					id="parent"
@@ -126,7 +126,7 @@
 					       bg-white dark:bg-slate-900 text-sm outline-none
 					       focus:ring-2 focus:ring-blue-500"
 				>
-					<option value={null}>{$_('category_detail.parent_none')}</option>
+					<option value={null}>{$_('categories.parent_none')}</option>
 					{#each data.categories as candidate (candidate.id)}
 						<option value={candidate.id}>{candidate.name}</option>
 					{/each}

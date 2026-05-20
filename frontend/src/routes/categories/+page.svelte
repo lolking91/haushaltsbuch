@@ -57,7 +57,7 @@
 			categories = categories.filter((c) => c.id !== id);
 			confirmingDeleteId = null;
 		} catch {
-			deleteError = $_('categories.delete_error');
+			deleteError = $_('common.delete_error');
 		}
 	}
 
@@ -76,7 +76,7 @@
 
 	<!-- Page header -->
 	<div class="flex items-center justify-between">
-		<h1 class="text-2xl font-bold">{$_('categories.title')}</h1>
+		<h1 class="text-2xl font-bold">{$_('nav.categories')}</h1>
 		<a
 			href="{base}/categories/new"
 			class="inline-flex items-center gap-2 px-4 py-2 rounded-xl
@@ -143,7 +143,7 @@
 								       text-gray-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700
 								       transition-colors shrink-0"
 							>
-								{$_('categories.delete_cancel')}
+								{$_('common.btn_cancel')}
 							</button>
 							<button
 								onclick={() => confirmDelete(group.parent.id)}
@@ -236,7 +236,7 @@
 												       text-gray-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700
 												       transition-colors shrink-0"
 											>
-												{$_('categories.delete_cancel')}
+												{$_('common.btn_cancel')}
 											</button>
 											<button
 												onclick={() => confirmDelete(child.id)}

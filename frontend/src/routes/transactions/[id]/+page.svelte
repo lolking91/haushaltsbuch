@@ -91,7 +91,7 @@
 				{transaction.counterpartyName ?? `#${transaction.id}`}
 			</h1>
 			<p class="text-sm text-gray-400 dark:text-slate-500 mt-0.5">
-				{$_('transaction_detail.field_id')}: {transaction.id}
+				{$_('common.field_id')}: {transaction.id}
 				&nbsp;·&nbsp;
 				{transaction.account.name}
 			</p>
@@ -190,7 +190,7 @@
 			<div class="px-5 py-4 border-b border-gray-100 dark:border-slate-700 flex items-center gap-2">
 				<Icon icon="heroicons:pencil-square" class="w-4 h-4 text-gray-400 dark:text-slate-500" />
 				<h2 class="font-semibold text-sm text-gray-700 dark:text-slate-200">
-					{$_('transaction_detail.section_edit')}
+					{$_('common.section_edit')}
 				</h2>
 			</div>
 
@@ -257,12 +257,12 @@
 				{#if saveStatus === 'success'}
 					<p class="text-xs text-green-600 dark:text-green-400 flex items-center gap-1">
 						<Icon icon="heroicons:check-circle" class="w-4 h-4" />
-						{$_('transaction_detail.save_success')}
+						{$_('common.save_success')}
 					</p>
 				{:else if saveStatus === 'error'}
 					<p class="text-xs text-red-600 dark:text-red-400 flex items-center gap-1">
 						<Icon icon="heroicons:exclamation-circle" class="w-4 h-4" />
-						{$_('transaction_detail.save_error')}
+						{$_('common.save_error')}
 					</p>
 				{/if}
 
@@ -277,7 +277,7 @@
 						       hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors
 						       disabled:opacity-40 disabled:cursor-not-allowed"
 					>
-						{$_('transaction_detail.btn_reset')}
+						{$_('common.btn_reset')}
 					</button>
 					<button
 						type="submit"
@@ -290,7 +290,7 @@
 						{#if saving}
 							<Icon icon="heroicons:arrow-path" class="w-4 h-4 animate-spin" />
 						{/if}
-						{$_('transaction_detail.btn_save')}
+						{$_('common.btn_save')}
 					</button>
 				</div>
 

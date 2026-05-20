@@ -82,7 +82,7 @@
 			await categoriesApi.delete(category.id);
 			await goto(`${base}/categories`);
 		} catch {
-			deleteError = $_('category_detail.delete_error');
+			deleteError = $_('common.delete_error');
 			deleting = false;
 			confirmingDelete = false;
 		}
@@ -118,7 +118,7 @@
 		       hover:text-gray-900 dark:hover:text-white transition-colors"
 	>
 		<Icon icon="heroicons:arrow-left" class="w-4 h-4" />
-		{$_('category_detail.back')}
+		{$_('common.back_to_overview')}
 	</a>
 
 	<!-- Page header -->
@@ -131,7 +131,7 @@
 		<div>
 			<h1 class="text-2xl font-bold text-gray-900 dark:text-white">{category.name}</h1>
 			<p class="text-sm text-gray-400 dark:text-slate-500 mt-0.5">
-				{$_('category_detail.field_id')}: {category.id}
+				{$_('common.field_id')}: {category.id}
 				{#if currentParent}
 					&nbsp;·&nbsp;
 					<span class="inline-flex items-center gap-1">
@@ -153,7 +153,7 @@
 		<div class="px-5 py-4 border-b border-gray-100 dark:border-slate-700 flex items-center gap-2">
 			<Icon icon="heroicons:pencil-square" class="w-4 h-4 text-gray-400 dark:text-slate-500" />
 			<h2 class="font-semibold text-sm text-gray-700 dark:text-slate-200">
-				{$_('category_detail.section_edit')}
+				{$_('common.section_edit')}
 			</h2>
 		</div>
 
@@ -164,7 +164,7 @@
 			<!-- Name -->
 			<div>
 				<label for="name" class="block text-xs font-medium text-gray-500 dark:text-slate-400 mb-1">
-					{$_('category_detail.field_name')}
+					{$_('categories.field_name')}
 				</label>
 				<input
 					id="name"
@@ -180,7 +180,7 @@
 			<!-- Color -->
 			<div>
 				<label for="color" class="block text-xs font-medium text-gray-500 dark:text-slate-400 mb-1">
-					{$_('category_detail.field_color')}
+					{$_('categories.field_color')}
 				</label>
 				<div class="flex items-center gap-3">
 					<!--
@@ -203,7 +203,7 @@
 			<!-- Parent category -->
 			<div>
 				<label for="parent" class="block text-xs font-medium text-gray-500 dark:text-slate-400 mb-1">
-					{$_('category_detail.field_parent')}
+					{$_('categories.field_parent')}
 				</label>
 				<select
 					id="parent"
@@ -212,7 +212,7 @@
 					       bg-white dark:bg-slate-900 text-sm outline-none
 					       focus:ring-2 focus:ring-blue-500"
 				>
-					<option value={null}>{$_('category_detail.parent_none')}</option>
+					<option value={null}>{$_('categories.parent_none')}</option>
 					{#each parentCandidates as candidate (candidate.id)}
 						<option value={candidate.id}>{candidate.name}</option>
 					{/each}
@@ -223,12 +223,12 @@
 			{#if saveStatus === 'success'}
 				<p class="text-xs text-green-600 dark:text-green-400 flex items-center gap-1">
 					<Icon icon="heroicons:check-circle" class="w-4 h-4" />
-					{$_('category_detail.save_success')}
+					{$_('common.save_success')}
 				</p>
 			{:else if saveStatus === 'error'}
 				<p class="text-xs text-red-600 dark:text-red-400 flex items-center gap-1">
 					<Icon icon="heroicons:exclamation-circle" class="w-4 h-4" />
-					{$_('category_detail.save_error')}
+					{$_('common.save_error')}
 				</p>
 			{/if}
 
@@ -243,7 +243,7 @@
 					       hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors
 					       disabled:opacity-40 disabled:cursor-not-allowed"
 				>
-					{$_('category_detail.btn_reset')}
+					{$_('common.btn_reset')}
 				</button>
 				<button
 					type="submit"
@@ -256,7 +256,7 @@
 					{#if saving}
 						<Icon icon="heroicons:arrow-path" class="w-4 h-4 animate-spin" />
 					{/if}
-					{$_('category_detail.btn_save')}
+					{$_('common.btn_save')}
 				</button>
 			</div>
 
@@ -310,7 +310,7 @@
 						       hover:bg-white dark:hover:bg-slate-700 transition-colors
 						       disabled:opacity-40 disabled:cursor-not-allowed"
 					>
-						{$_('category_detail.delete_cancel')}
+						{$_('common.btn_cancel')}
 					</button>
 					<button
 						onclick={deleteCategory}

@@ -64,7 +64,7 @@
 
 </script>
 
-<h1 class="text-2xl font-bold mb-6">{$_('dashboard.title')}</h1>
+<h1 class="text-2xl font-bold mb-6">{$_('nav.dashboard')}</h1>
 
 <!-- Loading -->
 {#if loading}

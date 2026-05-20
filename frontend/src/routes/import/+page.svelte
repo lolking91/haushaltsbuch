@@ -69,7 +69,7 @@
 
 </script>
 
-<h1 class="text-2xl font-bold mb-6">{$_('import.title')}</h1>
+<h1 class="text-2xl font-bold mb-6">{$_('nav.import')}</h1>
 
 <!-- Idle / File selection -->
 {#if importState === 'idle' || importState === 'error'}

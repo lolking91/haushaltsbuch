@@ -50,7 +50,7 @@
 </script>
 
 <div class="space-y-4">
-	<h1 class="text-2xl font-bold">{$_('transactions.title')}</h1>
+	<h1 class="text-2xl font-bold">{$_('nav.transactions')}</h1>
 
 	<!-- Toolbar -->
 	<div

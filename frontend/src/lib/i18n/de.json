@@ -1,4 +1,15 @@
 {
+	"common": {
+		"btn_save": "Speichern",
+		"btn_reset": "Zurücksetzen",
+		"btn_cancel": "Abbrechen",
+		"save_success": "Änderungen gespeichert.",
+		"save_error": "Fehler beim Speichern.",
+		"delete_error": "Fehler beim Löschen.",
+		"section_edit": "Details bearbeiten",
+		"field_id": "ID",
+		"back_to_overview": "Zurück zur Übersicht"
+	},
 	"nav": {
 		"app_name": "Haushaltsbuch",
 		"dashboard": "Dashboard",
@@ -10,7 +21,6 @@
 		"open_menu": "Menü öffnen"
 	},
 	"dashboard": {
-		"title": "Dashboard",
 		"total_balance": "Gesamtsaldo",
 		"accounts": "Konten",
 		"income_month": "Einnahmen (Monat)",
@@ -24,7 +34,6 @@
 		"no_recent": "Noch keine Transaktionen vorhanden."
 	},
 	"transactions": {
-		"title": "Transaktionen",
 		"search_placeholder": "Empfänger, Verwendungszweck…",
 		"all_accounts": "Alle Konten",
 		"col_date": "Datum",
@@ -43,7 +52,6 @@
 		"row_count_filtered": "von {total} gesamt"
 	},
 	"import": {
-		"title": "CSV Import",
 		"drop_label": "CSV-Datei auswählen oder hierher ziehen",
 		"drop_hint": "CSV-Datei hierher ziehen oder",
 		"drop_action": "Datei auswählen",
@@ -61,8 +69,6 @@
 	"transaction_detail": {
 		"back": "Zurück zur Liste",
 		"section_bank_data": "Bankdaten",
-		"section_edit": "Details bearbeiten",
-		"field_id": "ID",
 		"field_booking_date": "Buchungsdatum",
 		"field_value_date": "Wertstellung",
 		"field_amount": "Betrag",
@@ -71,14 +77,9 @@
 		"field_counterparty": "Empfänger / Auftraggeber",
 		"field_description": "Verwendungszweck",
 		"field_booking_text": "Buchungstext",
-		"read_only_hint": "Diese Felder stammen aus dem Bankimport und sind nicht editierbar.",
-		"btn_save": "Speichern",
-		"btn_reset": "Zurücksetzen",
-		"save_success": "Änderungen gespeichert.",
-		"save_error": "Fehler beim Speichern."
+		"read_only_hint": "Diese Felder stammen aus dem Bankimport und sind nicht editierbar."
 	},
 	"categories": {
-		"title": "Kategorien",
 		"btn_new": "Neue Kategorie",
 		"empty_title": "Noch keine Kategorien vorhanden",
 		"empty_text": "Lege eine Kategorie an, um Transaktionen zu gruppieren.",
@@ -88,39 +89,26 @@
 		"no_subcategories": "Keine Unterkategorien",
 		"delete_has_children": "Kann nicht gelöscht werden, solange Unterkategorien vorhanden sind",
 		"delete_confirm": "Wirklich löschen?",
-		"delete_cancel": "Abbrechen",
 		"delete_yes": "Löschen",
-		"delete_error": "Fehler beim Löschen"
+		"field_name": "Name",
+		"field_color": "Farbe",
+		"field_parent": "Übergeordnete Kategorie",
+		"parent_none": "Keine (Hauptkategorie)"
 	},
 	"category_create": {
 		"title": "Neue Kategorie",
-		"back": "Zurück zur Übersicht",
 		"section": "Kategorie anlegen",
 		"btn_create": "Kategorie anlegen",
 		"create_error": "Fehler beim Anlegen."
 	},
 	"category_detail": {
-		"back": "Zurück zur Übersicht",
 		"section_info": "Kategorie",
-		"section_edit": "Details bearbeiten",
-		"field_id": "ID",
-		"field_name": "Name",
-		"field_color": "Farbe",
-		"field_parent": "Übergeordnete Kategorie",
-		"parent_none": "Keine (Hauptkategorie)",
-		"btn_save": "Speichern",
-		"btn_reset": "Zurücksetzen",
-		"save_success": "Änderungen gespeichert.",
-		"save_error": "Fehler beim Speichern.",
 		"btn_delete": "Kategorie löschen",
 		"delete_has_children": "Hauptkategorien mit Unterkategorien können nicht gelöscht werden.",
 		"delete_confirm_text": "Diese Aktion kann nicht rückgängig gemacht werden.",
-		"delete_confirm_yes": "Ja, löschen",
-		"delete_cancel": "Abbrechen",
-		"delete_error": "Fehler beim Löschen."
+		"delete_confirm_yes": "Ja, löschen"
 	},
 	"reports": {
-		"title": "Auswertungen",
 		"expenses_by_category": "Ausgaben nach Kategorie",
 		"income_vs_expenses": "Einnahmen vs. Ausgaben",
 		"no_data": "Noch keine Daten vorhanden"

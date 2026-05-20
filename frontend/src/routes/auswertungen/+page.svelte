@@ -2,7 +2,7 @@
 	import { _ } from 'svelte-i18n';
 </script>
 
-<h1 class="text-2xl font-bold mb-6">{$_('reports.title')}</h1>
+<h1 class="text-2xl font-bold mb-6">{$_('nav.reports')}</h1>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
 	<div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-6 shadow-sm">

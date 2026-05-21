@@ -13,19 +13,22 @@
 	// --- State ---
 
 	let transaction = $state(data.transaction);
+	let categories = $state(data.categories);
 
 	/** Editable fields – kept in sync with the form inputs. */
 	let form = $state({
 		counterpartyName: transaction.counterpartyName ?? '',
 		description: transaction.description ?? '',
-		bookingText: transaction.bookingText ?? ''
+		bookingText: transaction.bookingText ?? '',
+		categoryId: transaction.category?.id ?? null as number | null
 	});
 
 	/** Snapshot of the last saved values – used to detect dirty state and to reset. */
 	let saved = $state({
 		counterpartyName: transaction.counterpartyName ?? '',
 		description: transaction.description ?? '',
-		bookingText: transaction.bookingText ?? ''
+		bookingText: transaction.bookingText ?? '',
+		categoryId: transaction.category?.id ?? null as number | null
 	});
 
 	let saving = $state(false);
@@ -36,7 +39,8 @@
 	let isDirty = $derived(
 		form.counterpartyName !== saved.counterpartyName ||
 		form.description !== saved.description ||
-		form.bookingText !== saved.bookingText
+		form.bookingText !== saved.bookingText ||
+		form.categoryId !== saved.categoryId
 	);
 
 	// --- Actions ---
@@ -46,6 +50,7 @@
 		form.counterpartyName = saved.counterpartyName;
 		form.description = saved.description;
 		form.bookingText = saved.bookingText;
+		form.categoryId = saved.categoryId;
 		saveStatus = 'idle';
 	}
 
@@ -57,12 +62,14 @@
 			const updated = await transactionsApi.update(transaction.id, {
 				counterpartyName: form.counterpartyName || null,
 				description: form.description || null,
-				bookingText: form.bookingText || null
+				bookingText: form.bookingText || null,
+				categoryId: form.categoryId
 			});
 			transaction = updated;
 			saved.counterpartyName = form.counterpartyName;
 			saved.description = form.description;
 			saved.bookingText = form.bookingText;
+			saved.categoryId = form.categoryId;
 			saveStatus = 'success';
 		} catch {
 			saveStatus = 'error';
@@ -251,6 +258,28 @@
 						       bg-white dark:bg-slate-900 text-sm outline-none
 						       focus:ring-2 focus:ring-blue-500"
 					/>
+				</div>
+
+				<!-- Category -->
+				<div>
+					<label
+						for="categoryId"
+						class="block text-xs font-medium text-gray-500 dark:text-slate-400 mb-1"
+					>
+						{$_('transaction_detail.field_category')}
+					</label>
+					<select
+						id="categoryId"
+						bind:value={form.categoryId}
+						class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-slate-600
+						       bg-white dark:bg-slate-900 text-sm outline-none
+						       focus:ring-2 focus:ring-blue-500"
+					>
+						<option value={null}>{$_('transaction_detail.category_none')}</option>
+						{#each categories as cat}
+							<option value={cat.id}>{cat.name}</option>
+						{/each}
+					</select>
 				</div>
 
 				<!-- Status message -->

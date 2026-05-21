@@ -29,6 +29,7 @@ export type Transaction = {
 	currency: string;
 	type: 'INCOME' | 'EXPENSE';
 	account: Account;
+	category: Category | null;
 };
 
 /** Request body for POST /api/transactions. */
@@ -50,6 +51,7 @@ export type TransactionUpdateRequest = {
 	counterpartyName?: string | null;
 	description?: string | null;
 	bookingText?: string | null;
+	categoryId?: number | null;
 };
 
 /** Response returned by POST /api/import/ing. */

@@ -50,7 +50,9 @@
 		"empty_no_import": "No transactions yet. Import a bank statement first.",
 		"empty_no_results": "No results for the current search.",
 		"row_count": "{count, plural, one {# transaction} other {# transactions}}",
-		"row_count_filtered": "of {total} total"
+		"row_count_filtered": "of {total} total",
+		"page_size_label": "Per page:",
+		"page_indicator": "Page {current} of {total}"
 	},
 	"import": {
 		"drop_label": "Select or drag CSV file here",
@@ -80,6 +82,8 @@
 		"field_counterparty": "Payee / Payer",
 		"field_description": "Purpose",
 		"field_booking_text": "Booking text",
+		"field_category": "Category",
+		"category_none": "No category",
 		"read_only_hint": "These fields originate from the bank import and cannot be edited."
 	},
 	"categories": {

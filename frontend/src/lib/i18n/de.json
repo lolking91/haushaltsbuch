@@ -50,7 +50,9 @@
 		"empty_no_import": "Noch keine Transaktionen vorhanden. Importiere zuerst einen Kontoauszug.",
 		"empty_no_results": "Keine Ergebnisse für die aktuelle Suche.",
 		"row_count": "{count, plural, one {# Transaktion} other {# Transaktionen}}",
-		"row_count_filtered": "von {total} gesamt"
+		"row_count_filtered": "von {total} gesamt",
+		"page_size_label": "Pro Seite:",
+		"page_indicator": "Seite {current} von {total}"
 	},
 	"import": {
 		"drop_label": "CSV-Datei auswählen oder hierher ziehen",
@@ -80,6 +82,8 @@
 		"field_counterparty": "Empfänger / Auftraggeber",
 		"field_description": "Verwendungszweck",
 		"field_booking_text": "Buchungstext",
+		"field_category": "Kategorie",
+		"category_none": "Keine Kategorie",
 		"read_only_hint": "Diese Felder stammen aus dem Bankimport und sind nicht editierbar."
 	},
 	"categories": {

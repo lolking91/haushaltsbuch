@@ -75,6 +75,14 @@ public class TransactionService {
         transaction.setDescription(request.description());
         transaction.setBookingText(request.bookingText());
 
+        if (request.categoryId() != null) {
+            Category category = categoryRepository.findById(request.categoryId())
+                    .orElseThrow(() -> new NotFoundException("Category", request.categoryId()));
+            transaction.setCategory(category);
+        } else {
+            transaction.setCategory(null);
+        }
+
         return transactionRepository.save(transaction);
     }
 }

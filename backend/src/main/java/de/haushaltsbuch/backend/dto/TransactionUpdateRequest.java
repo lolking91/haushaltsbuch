@@ -9,10 +9,12 @@ package de.haushaltsbuch.backend.dto;
  * @param counterpartyName name of the other party; {@code null} clears the value
  * @param description      free-text reference / Verwendungszweck; {@code null} clears the value
  * @param bookingText      short booking category text from the bank; {@code null} clears the value
+ * @param categoryId       ID of the category to assign; {@code null} removes the category
  */
 public record TransactionUpdateRequest(
         String counterpartyName,
         String description,
-        String bookingText
+        String bookingText,
+        Long categoryId
 ) {
 }

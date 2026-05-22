@@ -23,7 +23,8 @@ async function request<T>(
 		throw new Error(text || `HTTP ${res.status}`);
 	}
 
-	return res.json() as Promise<T>;
+	const text = await res.text();
+	return (text ? JSON.parse(text) : undefined) as T;
 }
 
 export const api = { request };

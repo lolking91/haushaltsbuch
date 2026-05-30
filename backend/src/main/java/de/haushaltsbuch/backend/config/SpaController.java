@@ -10,8 +10,8 @@ public class SpaController {
     @RequestMapping(value = {"/", "/{path:[^\\.]*}", "/{path:[^\\.]*}/**"})
     public String forward(HttpServletRequest request) {
         String path = request.getRequestURI();
-        // Exclude API routes regardless of any servlet context-path prefix (e.g. /banking/api/...)
-        if (path.contains("/api/")) {
+        // Exclude API routes and SvelteKit static assets from the SPA fallback
+        if (path.contains("/api/") || path.contains("/_app/")) {
             return null;
         }
         return "forward:/index.html";

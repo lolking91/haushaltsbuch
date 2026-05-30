@@ -145,8 +145,31 @@
 		"apply_error": "Error applying rules."
 	},
 	"reports": {
+		"title": "Reports",
+		"period_month": "This month",
+		"period_3months": "3 months",
+		"period_6months": "6 months",
+		"period_year": "This year",
+		"period_custom": "Custom",
+		"period_from": "From",
+		"period_to": "To",
+		"btn_load": "Load",
+		"kpi_income": "Income",
+		"kpi_expenses": "Expenses",
+		"kpi_balance": "Balance",
+		"kpi_savings_rate": "Savings rate",
+		"chart_monthly_title": "Income vs. Expenses",
+		"chart_monthly_income": "Income",
+		"chart_monthly_expenses": "Expenses",
+		"chart_category_title": "Expenses by category",
+		"chart_top_title": "Top categories",
+		"chart_trend_title": "Balance trend",
+		"no_data_title": "No data available",
+		"no_data_text": "No transactions were found for the selected period.",
+		"uncategorized": "Uncategorized",
 		"expenses_by_category": "Expenses by category",
 		"income_vs_expenses": "Income vs. expenses",
-		"no_data": "No data available yet"
+		"no_data": "No data available yet",
+		"load_error": "Error loading reports."
 	}
 }

@@ -145,8 +145,31 @@
 		"apply_error": "Fehler beim Anwenden der Regeln."
 	},
 	"reports": {
+		"title": "Auswertungen",
+		"period_month": "Dieser Monat",
+		"period_3months": "3 Monate",
+		"period_6months": "6 Monate",
+		"period_year": "Dieses Jahr",
+		"period_custom": "Benutzerdefiniert",
+		"period_from": "Von",
+		"period_to": "Bis",
+		"btn_load": "Laden",
+		"kpi_income": "Einnahmen",
+		"kpi_expenses": "Ausgaben",
+		"kpi_balance": "Saldo",
+		"kpi_savings_rate": "Sparquote",
+		"chart_monthly_title": "Einnahmen vs. Ausgaben",
+		"chart_monthly_income": "Einnahmen",
+		"chart_monthly_expenses": "Ausgaben",
+		"chart_category_title": "Ausgaben nach Kategorie",
+		"chart_top_title": "Top-Kategorien",
+		"chart_trend_title": "Saldo-Verlauf",
+		"no_data_title": "Keine Daten vorhanden",
+		"no_data_text": "Im gewählten Zeitraum wurden keine Transaktionen gefunden.",
+		"uncategorized": "Ohne Kategorie",
 		"expenses_by_category": "Ausgaben nach Kategorie",
 		"income_vs_expenses": "Einnahmen vs. Ausgaben",
-		"no_data": "Noch keine Daten vorhanden"
+		"no_data": "Noch keine Daten vorhanden",
+		"load_error": "Fehler beim Laden der Auswertungen."
 	}
 }

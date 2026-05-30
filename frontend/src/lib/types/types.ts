@@ -136,3 +136,40 @@ export type CategoryRequest = {
 
 /** UI state of the CSV import page. */
 export type ImportState = 'idle' | 'uploading' | 'success' | 'error';
+
+// ── Analytics ─────────────────────────────────────────────────────────────────
+
+/** Income and expense totals for a single calendar month. */
+export type MonthlyData = {
+	/** Month in {@code yyyy-MM} format, e.g. {@code "2024-01"}. */
+	month: string;
+	income: number;
+	expenses: number;
+	/** income − expenses for this month. */
+	balance: number;
+	/** Running cumulative balance since the first month in the result set. */
+	cumulativeBalance: number;
+};
+
+/** Aggregated amount for one category (or the uncategorized bucket). */
+export type CategoryData = {
+	/** Display name; {@code null} for uncategorized transactions. */
+	categoryName: string | null;
+	/**
+	 * Hex colour from the category entity, e.g. {@code "#FF5733"}.
+	 * {@code null} for uncategorized transactions — the frontend applies its own fallback colour.
+	 */
+	color: string | null;
+	amount: number;
+};
+
+/** Full analytics payload returned by {@code GET /api/analytics}. */
+export type AnalyticsResponse = {
+	totalIncome: number;
+	totalExpenses: number;
+	balance: number;
+	/** Savings rate in percent (0–100); {@code null} when there is no income. */
+	savingsRate: number | null;
+	monthlyData: MonthlyData[];
+	categoryExpenses: CategoryData[];
+};

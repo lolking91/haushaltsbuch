@@ -1,0 +1,12 @@
+# Local development override — builds the image from source instead of pulling
+# from ghcr.io. Used for testing the production Docker setup without a release.
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.local.yml up --build
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: haushaltsbuch:local

@@ -1,0 +1,11 @@
+# Copy this file to docker-compose.override.yml on your deployment machine.
+# Docker Compose automatically merges this file with docker-compose.yml.
+#
+# Adjust JAVA_TOOL_OPTIONS based on available RAM:
+#   Raspberry Pi (1-2 GB)  -> -Xmx256m
+#   Raspberry Pi (4-8 GB)  -> -Xmx512m
+
+services:
+  backend:
+    environment:
+      JAVA_TOOL_OPTIONS: "-Xms128m -Xmx512m"

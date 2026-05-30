@@ -12,7 +12,7 @@
 # -----------------------------------------------------------------------------
 # Stage 1: Frontend Build
 # -----------------------------------------------------------------------------
-FROM node:22-alpine AS frontend-build
+FROM --platform=$BUILDPLATFORM node:22-alpine AS frontend-build
 
 WORKDIR /app/frontend
 
@@ -33,7 +33,7 @@ RUN npm run build
 # -----------------------------------------------------------------------------
 # Stage 2: Backend Build
 # -----------------------------------------------------------------------------
-FROM maven:3-eclipse-temurin-21 AS backend-build
+FROM --platform=$BUILDPLATFORM maven:3-eclipse-temurin-21 AS backend-build
 
 WORKDIR /app/backend
 

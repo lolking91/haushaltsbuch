@@ -33,17 +33,15 @@ RUN npm run build
 # -----------------------------------------------------------------------------
 # Stage 2: Backend Build
 # -----------------------------------------------------------------------------
-FROM eclipse-temurin:21-jdk AS backend-build
+FROM maven:3-eclipse-temurin-21 AS backend-build
 
 WORKDIR /app/backend
 
-# Copy Maven wrapper and POM first for dependency caching
-COPY backend/.mvn/ .mvn/
-COPY backend/mvnw backend/pom.xml ./
-RUN chmod +x mvnw
+# Copy POM first for dependency caching
+COPY backend/pom.xml ./
 
 # Download all dependencies (cached as long as pom.xml doesn't change)
-RUN ./mvnw dependency:go-offline -q
+RUN mvn dependency:go-offline -q
 
 # Copy backend source
 COPY backend/src/ ./src/
@@ -53,7 +51,7 @@ COPY --from=frontend-build /app/backend/src/main/resources/static \
      ./src/main/resources/static
 
 # Build the fat JAR, skip tests (tests run in CI separately)
-RUN ./mvnw package -DskipTests -q
+RUN mvn package -DskipTests -q
 
 # -----------------------------------------------------------------------------
 # Stage 3: Runtime

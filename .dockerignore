@@ -1,0 +1,26 @@
+# Build artifacts
+backend/target/
+frontend/node_modules/
+frontend/.svelte-kit/
+frontend/build/
+
+# Git
+.git/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.code-workspace
+
+# AI / Dev tooling
+.claude/
+CLAUDE.md
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+.env.local

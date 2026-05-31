@@ -43,6 +43,7 @@
 		"col_purpose": "Verwendungszweck",
 		"col_account": "Konto",
 		"col_type": "Typ",
+		"col_category": "Kategorie",
 		"col_amount": "Betrag",
 		"badge_income": "Einnahme",
 		"badge_expense": "Ausgabe",

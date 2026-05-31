@@ -43,6 +43,7 @@
 		"col_purpose": "Purpose",
 		"col_account": "Account",
 		"col_type": "Type",
+		"col_category": "Category",
 		"col_amount": "Amount",
 		"badge_income": "Income",
 		"badge_expense": "Expense",

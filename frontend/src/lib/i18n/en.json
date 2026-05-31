@@ -13,6 +13,7 @@
 	"nav": {
 		"app_name": "Haushaltsbuch",
 		"dashboard": "Dashboard",
+		"accounts": "Accounts",
 		"transactions": "Transactions",
 		"categories": "Categories",
 		"rules": "Rules",
@@ -143,6 +144,35 @@
 		"btn_apply": "Apply to existing transactions",
 		"apply_result": "{count, plural, one {# transaction categorized} other {# transactions categorized}}",
 		"apply_error": "Error applying rules."
+	},
+	"accounts": {
+		"btn_new": "New account",
+		"empty_title": "No accounts yet",
+		"empty_text": "Import a bank statement or create an account manually.",
+		"empty_cta": "Create account",
+		"delete_confirm": "Really delete?",
+		"delete_yes": "Delete",
+		"delete_has_transactions": "Cannot be deleted while transactions exist",
+		"field_name": "Account name",
+		"field_bank_name": "Bank",
+		"field_iban": "IBAN",
+		"field_balance": "Balance (€)",
+		"field_currency": "Currency",
+		"iban_hint": "Format: DE89 3704 0044 0532 0130 00",
+		"iban_error_format": "Invalid IBAN format (expected: country code + check digits + account number)",
+		"iban_error_checksum": "Invalid IBAN checksum — please double-check"
+	},
+	"account_create": {
+		"title": "New account",
+		"section": "Create account",
+		"btn_create": "Create account",
+		"create_error": "Error creating account."
+	},
+	"account_detail": {
+		"btn_delete": "Delete account",
+		"delete_has_transactions": "Accounts with existing transactions cannot be deleted.",
+		"delete_confirm_text": "This action cannot be undone.",
+		"delete_confirm_yes": "Yes, delete"
 	},
 	"reports": {
 		"title": "Reports",

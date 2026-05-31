@@ -9,6 +9,7 @@
 	// Nav links are reactive so their labels update when the locale changes.
 	let links = $derived([
 		{ href: `${base}/`, label: $_('nav.dashboard') },
+		{ href: `${base}/accounts`, label: $_('nav.accounts') },
 		{ href: `${base}/transactions`, label: $_('nav.transactions') },
 		{ href: `${base}/categories`, label: $_('nav.categories') },
 		{ href: `${base}/category-rules`, label: $_('nav.rules') },

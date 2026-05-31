@@ -54,3 +54,34 @@ export function randomColor(): string {
 export function formatIban(iban: string | null | undefined): string {
 	return iban?.replace(/(.{4})/g, '$1 ').trim() ?? '—';
 }
+
+/**
+ * Validates an IBAN string (mirrors the Java {@code IbanValidator} exactly).
+ *
+ * Normalizes whitespace and casing before checking, so the user may type
+ * "de89 3704 …" and still get a valid result.
+ *
+ * @param raw  The raw user input. Empty / whitespace-only values are considered
+ *             absent and are always accepted (IBAN is an optional field).
+ * @returns    {@code null} when valid or absent;
+ *             {@code 'format'}   when the structure does not match the IBAN pattern;
+ *             {@code 'checksum'} when the mod-97 checksum is wrong.
+ */
+export function validateIban(raw: string): 'format' | 'checksum' | null {
+	const iban = raw.replace(/\s+/g, '').toUpperCase();
+	if (!iban) return null;
+
+	// Must be: 2 letters + 2 digits + 1–30 alphanumeric chars
+	if (!/^[A-Z]{2}\d{2}[A-Z0-9]{1,30}$/.test(iban)) return 'format';
+
+	// Mod-97 checksum: move first 4 chars to end, map letters to digits (A=10…Z=35)
+	const rearranged = iban.slice(4) + iban.slice(0, 4);
+	const digits = rearranged
+		.split('')
+		.map((c) => (/[A-Z]/.test(c) ? String(c.charCodeAt(0) - 55) : c))
+		.join('');
+
+	if (BigInt(digits) % 97n !== 1n) return 'checksum';
+
+	return null;
+}

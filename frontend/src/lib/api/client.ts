@@ -1,8 +1,18 @@
 import { base } from '$app/paths';
 
+/** Thrown by {@link api.request} for any non-2xx HTTP response. */
+export class ApiError extends Error {
+	readonly status: number;
+
+	constructor(status: number, body: string) {
+		super(body || `HTTP ${status}`);
+		this.status = status;
+	}
+}
+
 /**
- * Thin fetch wrapper that prepends the SvelteKit base path and throws a
- * descriptive Error for any non-2xx response.
+ * Thin fetch wrapper that prepends the SvelteKit base path and throws an
+ * {@link ApiError} for any non-2xx response.
  *
  * @param path         API path starting with "/", e.g. "/api/accounts"
  * @param init         Optional fetch options (method, body, headers, …)
@@ -20,7 +30,7 @@ async function request<T>(
 
 	if (!res.ok) {
 		const text = await res.text();
-		throw new Error(text || `HTTP ${res.status}`);
+		throw new ApiError(res.status, text);
 	}
 
 	const text = await res.text();

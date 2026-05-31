@@ -58,4 +58,30 @@ public class AccountController {
         URI location = URI.create("/api/accounts/" + saved.getId());
         return ResponseEntity.created(location).body(saved);
     }
+
+    /**
+     * Updates an existing account.
+     *
+     * @param id      the account ID
+     * @param request validated updated account data
+     * @return {@code 200 OK} with the updated account, or {@code 404 Not Found}
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<Account> update(@PathVariable Long id, @Valid @RequestBody AccountRequest request) {
+        return ResponseEntity.ok(accountService.update(id, request));
+    }
+
+    /**
+     * Deletes an account by ID.
+     *
+     * @param id the account ID
+     * @return {@code 204 No Content} on success,
+     *         {@code 404 Not Found} when the account does not exist,
+     *         {@code 409 Conflict} when the account still has transactions
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        accountService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

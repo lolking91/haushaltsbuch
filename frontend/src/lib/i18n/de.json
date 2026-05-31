@@ -13,6 +13,7 @@
 	"nav": {
 		"app_name": "Haushaltsbuch",
 		"dashboard": "Dashboard",
+		"accounts": "Konten",
 		"transactions": "Transaktionen",
 		"categories": "Kategorien",
 		"rules": "Regeln",
@@ -143,6 +144,35 @@
 		"btn_apply": "Auf bestehende Transaktionen anwenden",
 		"apply_result": "{count, plural, one {# Transaktion kategorisiert} other {# Transaktionen kategorisiert}}",
 		"apply_error": "Fehler beim Anwenden der Regeln."
+	},
+	"accounts": {
+		"btn_new": "Neues Konto",
+		"empty_title": "Noch keine Konten vorhanden",
+		"empty_text": "Importiere einen Kontoauszug oder lege ein Konto manuell an.",
+		"empty_cta": "Konto anlegen",
+		"delete_confirm": "Wirklich löschen?",
+		"delete_yes": "Löschen",
+		"delete_has_transactions": "Kann nicht gelöscht werden, solange Transaktionen vorhanden sind",
+		"field_name": "Kontoname",
+		"field_bank_name": "Bank",
+		"field_iban": "IBAN",
+		"field_balance": "Kontostand (€)",
+		"field_currency": "Währung",
+		"iban_hint": "Format: DE89 3704 0044 0532 0130 00",
+		"iban_error_format": "Ungültiges IBAN-Format (erwartet: Länderkürzel + Prüfziffer + Kontonummer)",
+		"iban_error_checksum": "IBAN-Prüfsumme ungültig — bitte nochmals prüfen"
+	},
+	"account_create": {
+		"title": "Neues Konto",
+		"section": "Konto anlegen",
+		"btn_create": "Konto anlegen",
+		"create_error": "Fehler beim Anlegen."
+	},
+	"account_detail": {
+		"btn_delete": "Konto löschen",
+		"delete_has_transactions": "Konten mit vorhandenen Transaktionen können nicht gelöscht werden.",
+		"delete_confirm_text": "Diese Aktion kann nicht rückgängig gemacht werden.",
+		"delete_confirm_yes": "Ja, löschen"
 	},
 	"reports": {
 		"title": "Auswertungen",

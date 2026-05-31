@@ -68,11 +68,16 @@ public class CategoryRuleService {
     public CategoryRuleResponse create(CategoryRuleRequest request) {
         Category category = resolveCategory(request.categoryId());
 
+        ConditionOperator operator = request.conditionOperator() != null
+                ? request.conditionOperator()
+                : ConditionOperator.ALL;
+
         CategoryRule rule = CategoryRule.builder()
                 .category(category)
                 .name(request.name())
                 .priority(request.priority())
                 .active(request.active())
+                .conditionOperator(operator)
                 .build();
 
         request.conditions().forEach(c -> rule.getConditions().add(
@@ -106,6 +111,9 @@ public class CategoryRuleService {
         rule.setName(request.name());
         rule.setPriority(request.priority());
         rule.setActive(request.active());
+        rule.setConditionOperator(request.conditionOperator() != null
+                ? request.conditionOperator()
+                : ConditionOperator.ALL);
 
         // Clear and rebuild; orphanRemoval deletes removed conditions from the DB
         rule.getConditions().clear();
@@ -191,12 +199,15 @@ public class CategoryRuleService {
     // ── Internals ─────────────────────────────────────────────────────────────
 
     /**
-     * Returns the category of the first rule (by priority) whose every condition
-     * matches the transaction, or {@link Optional#empty()} if none matched.
+     * Returns the category of the first rule (by priority) whose conditions match
+     * the transaction according to its {@link ConditionOperator}, or
+     * {@link Optional#empty()} if none matched.
      */
     private Optional<Category> firstMatch(Transaction tx, List<CategoryRule> rules) {
         return rules.stream()
-                .filter(rule -> rule.getConditions().stream().allMatch(c -> matches(c, tx)))
+                .filter(rule -> rule.getConditionOperator() == ConditionOperator.ALL
+                        ? rule.getConditions().stream().allMatch(c -> matches(c, tx))
+                        : rule.getConditions().stream().anyMatch(c -> matches(c, tx)))
                 .map(CategoryRule::getCategory)
                 .findFirst();
     }
@@ -237,6 +248,7 @@ public class CategoryRuleService {
                 rule.getName(),
                 rule.getPriority(),
                 rule.isActive(),
+                rule.getConditionOperator(),
                 conditionResponses
         );
     }

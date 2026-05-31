@@ -10,9 +10,10 @@ import java.util.List;
 /**
  * A rule that automatically assigns a category to matching transactions.
  *
- * <p>A rule consists of one or more {@link RuleCondition conditions}, all of
- * which must match (logical AND). When multiple rules match the same transaction,
- * the one with the highest {@link #priority} wins.
+ * <p>A rule consists of one or more {@link RuleCondition conditions} combined via
+ * a {@link ConditionOperator}: either all conditions must match (AND) or at least
+ * one must match (OR). When multiple rules match the same transaction, the one
+ * with the highest {@link #priority} wins.
  */
 @Entity
 @Table(name = "category_rules")
@@ -53,7 +54,17 @@ public class CategoryRule {
     @Builder.Default
     private boolean active = true;
 
-    /** All conditions that must match for this rule to fire. */
+    /**
+     * How conditions are combined: {@link ConditionOperator#ALL} requires every
+     * condition to match (AND); {@link ConditionOperator#ANY} requires at least one
+     * to match (OR). Defaults to {@link ConditionOperator#ALL}.
+     */
+    @Column(nullable = false, length = 3)
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private ConditionOperator conditionOperator = ConditionOperator.ALL;
+
+    /** Conditions evaluated against the transaction according to {@link #conditionOperator}. */
     @OneToMany(mappedBy = "rule", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<RuleCondition> conditions = new ArrayList<>();

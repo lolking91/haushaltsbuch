@@ -4,7 +4,7 @@
 	import Icon from '@iconify/svelte';
 	import { _ } from 'svelte-i18n';
 	import { categoryRulesApi } from '$lib/api/categoryRules.js';
-	import type { ConditionField, ConditionMatcher } from '$lib/types/types.js';
+	import type { ConditionField, ConditionMatcher, ConditionOperator } from '$lib/types/types.js';
 	import type { PageData } from './$types.js';
 
 	let { data }: { data: PageData } = $props();
@@ -18,6 +18,7 @@
 		categoryId: null as number | null,
 		priority: 0,
 		active: true,
+		conditionOperator: 'ALL' as ConditionOperator,
 		conditions: [{ field: 'COUNTERPARTY_NAME', matcher: 'CONTAINS', value: '' }] as ConditionForm[]
 	});
 
@@ -53,6 +54,7 @@
 				name: form.name.trim() || null,
 				priority: form.priority,
 				active: form.active,
+				conditionOperator: form.conditionOperator,
 				conditions: form.conditions.map((c) => ({
 					field: c.field,
 					matcher: c.matcher,
@@ -161,11 +163,51 @@
 
 			<!-- Conditions section -->
 			<div class="space-y-3 pt-1">
-				<p class="text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">
-					{$_('category_rules.section_conditions')}
-				</p>
+				<div class="flex items-center justify-between">
+					<p class="text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide">
+						{$_('category_rules.section_conditions')}
+					</p>
+					<!--
+						Operator toggle — only meaningful with ≥2 conditions, but always visible
+						so the user can set it before adding the second condition.
+					-->
+					<div class="flex rounded-lg overflow-hidden border border-gray-300 dark:border-slate-600 text-xs font-medium">
+						<button
+							type="button"
+							onclick={() => (form.conditionOperator = 'ALL')}
+							class="px-3 py-1.5 transition-colors
+							       {form.conditionOperator === 'ALL'
+							         ? 'bg-blue-600 text-white'
+							         : 'text-gray-500 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700'}"
+						>
+							{$_('category_rules.operator_all')}
+						</button>
+						<button
+							type="button"
+							onclick={() => (form.conditionOperator = 'ANY')}
+							class="px-3 py-1.5 border-l border-gray-300 dark:border-slate-600 transition-colors
+							       {form.conditionOperator === 'ANY'
+							         ? 'bg-blue-600 text-white'
+							         : 'text-gray-500 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700'}"
+						>
+							{$_('category_rules.operator_any')}
+						</button>
+					</div>
+				</div>
 
 				{#each form.conditions as condition, i (i)}
+					<!-- Connector badge between conditions (not before the first) -->
+					{#if i > 0}
+						<div class="flex items-center gap-2">
+							<span class="text-xs font-semibold px-2 py-0.5 rounded-full
+							             {form.conditionOperator === 'ALL'
+							               ? 'bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-slate-400'
+							               : 'bg-blue-100 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400'}">
+								{form.conditionOperator === 'ALL' ? 'UND' : 'ODER'}
+							</span>
+							<span class="flex-1 border-t border-dashed border-gray-200 dark:border-slate-700"></span>
+						</div>
+					{/if}
 					<div class="flex items-start gap-2">
 						<!-- Field -->
 						<select

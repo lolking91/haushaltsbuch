@@ -66,6 +66,9 @@ export type ImportResult = {
 	categorized: number;
 };
 
+/** How the conditions of a rule are combined. */
+export type ConditionOperator = 'ALL' | 'ANY';
+
 /** Which transaction field a rule condition is evaluated against. */
 export type ConditionField = 'COUNTERPARTY_NAME' | 'DESCRIPTION' | 'TRANSACTION_TYPE';
 
@@ -88,6 +91,7 @@ export type CategoryRule = {
 	name: string | null;
 	priority: number;
 	active: boolean;
+	conditionOperator: ConditionOperator;
 	conditions: RuleCondition[];
 };
 
@@ -104,6 +108,7 @@ export type CategoryRuleRequest = {
 	name: string | null;
 	priority: number;
 	active: boolean;
+	conditionOperator: ConditionOperator;
 	conditions: RuleConditionRequest[];
 };
 

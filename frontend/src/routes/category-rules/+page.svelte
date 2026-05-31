@@ -204,7 +204,17 @@
 
 								<!-- Conditions -->
 								<ul class="mt-1.5 space-y-0.5">
-									{#each rule.conditions as c}
+									{#each rule.conditions as c, i}
+										{#if i > 0}
+											<li class="text-xs font-semibold py-0.5">
+												<span class="px-1.5 py-0.5 rounded-full
+												             {rule.conditionOperator === 'ALL'
+												               ? 'bg-gray-100 dark:bg-slate-700 text-gray-400 dark:text-slate-500'
+												               : 'bg-blue-100 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400'}">
+													{rule.conditionOperator === 'ALL' ? 'UND' : 'ODER'}
+												</span>
+											</li>
+										{/if}
 										<li class="text-sm text-gray-500 dark:text-slate-400">
 											{$_(FIELD_KEYS[c.field])}
 											<span class="text-gray-400 dark:text-slate-500 mx-1">{$_(MATCHER_KEYS[c.matcher])}</span>

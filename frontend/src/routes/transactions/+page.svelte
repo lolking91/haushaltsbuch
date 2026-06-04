@@ -334,7 +334,7 @@
 						>
 							<option value="">{$_('transactions.filter_all_accounts')}</option>
 							{#each accounts as account (account.id)}
-								<option value={account.id}>{account.name}</option>
+								<option value={String(account.id)}>{account.name}</option>
 							{/each}
 						</select>
 					</div>

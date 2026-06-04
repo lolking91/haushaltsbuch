@@ -142,6 +142,62 @@ export type CategoryRequest = {
 /** UI state of the CSV import page. */
 export type ImportState = 'idle' | 'uploading' | 'success' | 'error';
 
+// ── ETF Portfolio ─────────────────────────────────────────────────────────────
+
+/** A point-in-time snapshot of an ETF's portfolio value. */
+export type EtfSnapshot = {
+	id: number;
+	etfId: number;
+	date: string;
+	totalValue: number;
+	shares?: number;
+	pricePerShare?: number;
+	priceCurrency?: string;
+	/** Cumulative gain/loss in EUR since first purchase, as reported by the broker. */
+	gainAbsolute?: number;
+	/** Cumulative gain/loss in percent since first purchase, as reported by the broker. */
+	gainPercent?: number;
+};
+
+/** An ETF as returned by GET /api/etfs, including the most recent snapshot. */
+export type Etf = {
+	id: number;
+	name: string;
+	wkn: string;
+	isin?: string;
+	brokerName?: string;
+	notes?: string;
+	latestSnapshot?: EtfSnapshot;
+};
+
+/** Request body for POST/PUT /api/etfs. */
+export type EtfRequest = {
+	name: string;
+	wkn: string;
+	isin?: string;
+	brokerName?: string;
+	notes?: string;
+};
+
+/** Request body for POST /api/etfs/{id}/snapshots. */
+export type EtfSnapshotRequest = {
+	date: string;
+	totalValue: number;
+	shares?: number;
+	pricePerShare?: number;
+	priceCurrency?: string;
+	gainAbsolute?: number;
+	gainPercent?: number;
+};
+
+/** Result of POST /api/etf-import. */
+export type EtfImportResult = {
+	importDate: string;
+	created: number;
+	inserted: number;
+	updated: number;
+};
+
 // ── Analytics ─────────────────────────────────────────────────────────────────
 
 /** Income and expense totals for a single calendar month. */

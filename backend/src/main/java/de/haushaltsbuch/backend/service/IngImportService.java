@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 
 /**
- * Handles the import of bank statement CSV files.
+ * Handles the import of ING bank statement CSV files.
  *
  * <p>Import flow:
  * <ol>
@@ -30,12 +30,11 @@ import java.util.Collections;
  *   <li>Validate and persist each transaction, skipping duplicates and invalid rows</li>
  *   <li>Create an {@link ImportJob} record for audit purposes</li>
  * </ol>
- *
  */
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ImportService {
+public class IngImportService {
 
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;

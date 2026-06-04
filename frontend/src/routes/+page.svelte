@@ -6,14 +6,16 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Amount } from '$lib/components/ui/amount/index.js';
 	import { formatCurrency, formatDateShort, formatIban } from '$lib/utils/format.js';
-	import type { Account, Transaction } from '$lib/types/types.js';
+	import type { Account, Transaction, Etf } from '$lib/types/types.js';
 	import { accountsApi } from '$lib/api/accounts.js';
 	import { transactionsApi } from '$lib/api/transactions.js';
+	import { etfsApi } from '$lib/api/etfs.js';
 
 	// --- State ---
 
 	let accounts: Account[] = $state([]);
 	let transactions: Transaction[] = $state([]);
+	let etfs: Etf[] = $state([]);
 	let loading = $state(true);
 	let errorMessage = $state('');
 
@@ -40,6 +42,11 @@
 		thisMonthTx.filter((t) => t.type === 'EXPENSE').reduce((sum, t) => sum + Math.abs(t.amount), 0)
 	);
 
+	/** Sum of the latest snapshot values across all ETFs. */
+	let etfTotalValue = $derived(
+		etfs.reduce((sum, e) => sum + (e.latestSnapshot?.totalValue ?? 0), 0)
+	);
+
 	/** Five most recent transactions sorted by booking date descending. */
 	let recentTransactions: Transaction[] = $derived(
 		[...transactions]
@@ -51,9 +58,10 @@
 
 	onMount(async () => {
 		try {
-			[accounts, transactions] = await Promise.all([
+			[accounts, transactions, etfs] = await Promise.all([
 				accountsApi.getAll(),
-				transactionsApi.getAll()
+				transactionsApi.getAll(),
+				etfsApi.getAll()
 			]);
 		} catch (e) {
 			errorMessage = e instanceof Error ? e.message : String(e);
@@ -102,7 +110,7 @@
 <!-- Dashboard with data -->
 {:else}
 	<!-- ── Stats row ──────────────────────────────────────────────────────── -->
-	<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+	<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
 
 		<!-- Total balance -->
 		<div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5 shadow-sm flex items-center gap-4">
@@ -140,6 +148,26 @@
 				</p>
 			</div>
 		</div>
+
+		<!-- ETF Portfolio (separate, not part of account balance) -->
+		{#if etfs.length > 0}
+			<a
+				href="{base}/portfolio"
+				class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5 shadow-sm flex items-center gap-4
+				       hover:border-blue-300 dark:hover:border-blue-600 transition-colors group"
+			>
+				<div class="w-11 h-11 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 flex items-center justify-center shrink-0">
+					<Icon icon="heroicons:chart-bar" class="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+				</div>
+				<div class="min-w-0">
+					<p class="text-xs text-gray-500 dark:text-slate-400 uppercase tracking-wide">{$_('portfolio.title')}</p>
+					<p class="text-2xl font-bold tabular-nums truncate mt-0.5">{formatCurrency(etfTotalValue)}</p>
+					<p class="text-xs text-gray-400 dark:text-slate-500 mt-0.5 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+						{etfs.length} {$_('portfolio.etf_count')} →
+					</p>
+				</div>
+			</a>
+		{/if}
 	</div>
 
 	<!-- ── Accounts + Recent transactions ────────────────────────────────── -->

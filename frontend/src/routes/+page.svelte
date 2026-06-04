@@ -114,7 +114,7 @@
 
 		<!-- Total balance -->
 		<a
-			href="{base}/auswertungen"
+			href="{base}/reports"
 			class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5 shadow-sm flex items-center gap-4
 			       hover:border-blue-300 dark:hover:border-blue-600 transition-colors group"
 		>

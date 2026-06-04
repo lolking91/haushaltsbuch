@@ -55,7 +55,20 @@
 		"row_count": "{count, plural, one {# transaction} other {# transactions}}",
 		"row_count_filtered": "of {total} total",
 		"page_size_label": "Per page:",
-		"page_indicator": "Page {current} of {total}"
+		"page_indicator": "Page {current} of {total}",
+		"filter_btn": "Filter",
+		"filter_reset": "Reset",
+		"filter_type_label": "Type",
+		"filter_type_all": "All",
+		"filter_account_label": "Account",
+		"filter_all_accounts": "All accounts",
+		"filter_category_label": "Categories",
+		"filter_date_from": "From",
+		"filter_date_to": "To",
+		"filter_amount_min": "Min. amount",
+		"filter_amount_max": "Max. amount",
+		"filter_uncategorized": "Uncategorized only",
+		"filter_active": "{count, plural, one {# filter} other {# filters}}"
 	},
 	"import": {
 		"tab_ing": "Bank (ING)",

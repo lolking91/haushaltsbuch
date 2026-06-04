@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import { _ } from 'svelte-i18n';
+	import { DateInput } from '$lib/components/ui/date-input/index.js';
 	import { analyticsApi } from '$lib/api/analytics.js';
 	import BarChart from '$lib/components/charts/BarChart.svelte';
 	import DonutChart from '$lib/components/charts/DonutChart.svelte';
@@ -19,11 +20,7 @@
 	let customFrom: string = $state(data.defaultFrom);
 	let customTo: string   = $state(data.defaultTo);
 
-	// Bound to the date inputs so we can call showPicker() from the calendar icon button.
-	let fromInput: HTMLInputElement | undefined = $state();
-	let toInput:   HTMLInputElement | undefined = $state();
-
-	/** Computes the ISO date range for a preset period relative to today. */
+/** Computes the ISO date range for a preset period relative to today. */
 	function presetRange(p: Exclude<Period, 'custom'>): { from: string; to: string } {
 		const today = new Date();
 		const to    = today.toISOString().slice(0, 10);
@@ -137,53 +134,13 @@
 				<label for="custom-from" class="block text-xs font-medium text-gray-500 dark:text-slate-400 mb-1">
 					{$_('reports.period_from')}
 				</label>
-				<div class="relative">
-					<input
-						bind:this={fromInput}
-						id="custom-from"
-						type="date"
-						bind:value={customFrom}
-						max={customTo || undefined}
-						class="date-input px-3 py-2 pr-9 rounded-lg border border-gray-300 dark:border-slate-600
-						       bg-white dark:bg-slate-900 text-sm outline-none focus:ring-2 focus:ring-blue-500"
-					/>
-					<button
-						type="button"
-						onclick={() => fromInput?.showPicker()}
-						tabindex="-1"
-						aria-label="Datum wählen"
-						class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400
-						       hover:text-gray-600 dark:hover:text-slate-300 transition-colors"
-					>
-						<Icon icon="heroicons:calendar" class="w-4 h-4" />
-					</button>
-				</div>
+				<DateInput id="custom-from" bind:value={customFrom} max={customTo || undefined} />
 			</div>
 			<div>
 				<label for="custom-to" class="block text-xs font-medium text-gray-500 dark:text-slate-400 mb-1">
 					{$_('reports.period_to')}
 				</label>
-				<div class="relative">
-					<input
-						bind:this={toInput}
-						id="custom-to"
-						type="date"
-						bind:value={customTo}
-						min={customFrom || undefined}
-						class="date-input px-3 py-2 pr-9 rounded-lg border border-gray-300 dark:border-slate-600
-						       bg-white dark:bg-slate-900 text-sm outline-none focus:ring-2 focus:ring-blue-500"
-					/>
-					<button
-						type="button"
-						onclick={() => toInput?.showPicker()}
-						tabindex="-1"
-						aria-label="Datum wählen"
-						class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400
-						       hover:text-gray-600 dark:hover:text-slate-300 transition-colors"
-					>
-						<Icon icon="heroicons:calendar" class="w-4 h-4" />
-					</button>
-				</div>
+				<DateInput id="custom-to" bind:value={customTo} min={customFrom || undefined} />
 			</div>
 			<button
 				onclick={loadCustomRange}
@@ -349,10 +306,3 @@
 	</div>
 
 </div>
-
-<style>
-	/* Hide the native browser calendar icon so only our custom Heroicons button is visible. */
-	.date-input::-webkit-calendar-picker-indicator {
-		display: none;
-	}
-</style>

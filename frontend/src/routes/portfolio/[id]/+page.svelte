@@ -8,6 +8,7 @@
 	import { formatCurrency, formatDate } from '$lib/utils/format.js';
 	import type { Etf, EtfSnapshot } from '$lib/types/types.js';
 	import { etfsApi } from '$lib/api/etfs.js';
+	import { NumberInput } from '$lib/components/ui/number-input/index.js';
 	import { ApiError } from '$lib/api/client.js';
 	import EtfLineChart from '$lib/components/charts/EtfLineChart.svelte';
 
@@ -436,15 +437,7 @@
 							<label for="snapValue" class="block text-xs font-medium text-gray-500 dark:text-slate-400 mb-1">
 								{$_('portfolio.snapshot_field_value')}
 							</label>
-							<input
-								id="snapValue"
-								type="number"
-								step="0.01"
-								min="0"
-								bind:value={snapshotForm.totalValue}
-								class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-slate-600
-								       bg-white dark:bg-slate-900 text-sm outline-none focus:ring-2 focus:ring-blue-500"
-							/>
+							<NumberInput id="snapValue" step={0.01} min={0} bind:value={snapshotForm.totalValue} class="w-full" />
 						</div>
 						<div class="flex items-end">
 							<button

@@ -4,6 +4,7 @@
 	import Icon from '@iconify/svelte';
 	import { _ } from 'svelte-i18n';
 	import { categoryRulesApi } from '$lib/api/categoryRules.js';
+	import { NumberInput } from '$lib/components/ui/number-input/index.js';
 	import type { ConditionField, ConditionMatcher, ConditionOperator } from '$lib/types/types.js';
 	import type { PageData } from './$types.js';
 
@@ -188,14 +189,7 @@
 					<label for="priority" class="block text-xs font-medium text-gray-500 dark:text-slate-400 mb-1">
 						{$_('category_rules.field_priority')}
 					</label>
-					<input
-						id="priority"
-						type="number"
-						bind:value={form.priority}
-						class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-slate-600
-						       bg-white dark:bg-slate-900 text-sm outline-none
-						       focus:ring-2 focus:ring-blue-500"
-					/>
+					<NumberInput id="priority" bind:value={form.priority} class="w-full" />
 					<p class="text-xs text-gray-400 dark:text-slate-500 mt-1">
 						{$_('category_rules.field_priority_hint')}
 					</p>

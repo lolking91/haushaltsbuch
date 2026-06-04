@@ -4,6 +4,7 @@
 	import Icon from '@iconify/svelte';
 	import { _ } from 'svelte-i18n';
 	import { accountsApi } from '$lib/api/accounts.js';
+	import { NumberInput } from '$lib/components/ui/number-input/index.js';
 	import { ApiError } from '$lib/api/client.js';
 	import { validateIban } from '$lib/utils/format.js';
 	import type { PageData } from './$types.js';
@@ -233,15 +234,7 @@
 				<label for="balance" class="block text-xs font-medium text-gray-500 dark:text-slate-400 mb-1">
 					{$_('accounts.field_balance')}
 				</label>
-				<input
-					id="balance"
-					type="number"
-					step="0.01"
-					bind:value={form.balance}
-					class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-slate-600
-					       bg-white dark:bg-slate-900 text-sm outline-none
-					       focus:ring-2 focus:ring-blue-500"
-				/>
+				<NumberInput id="balance" step={0.01} bind:value={form.balance} class="w-full" />
 			</div>
 
 			<!-- Status message -->

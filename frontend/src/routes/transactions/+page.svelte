@@ -14,6 +14,7 @@
 	import { Badge, CategoryBadge } from '$lib/components/ui/badge/index.js';
 	import { Amount } from '$lib/components/ui/amount/index.js';
 	import { DateInput } from '$lib/components/ui/date-input/index.js';
+	import { NumberInput } from '$lib/components/ui/number-input/index.js';
 	import { formatDate } from '$lib/utils/format.js';
 	import type { PageData } from './$types.js';
 
@@ -319,27 +320,9 @@
 							{$_('transactions.filter_amount_min')} / {$_('transactions.filter_amount_max')}
 						</label>
 						<div class="flex items-center gap-2">
-							<input
-								type="number"
-								min="0"
-								step="0.01"
-								placeholder="0,00"
-								bind:value={amountMin}
-								class="w-24 px-3 py-2 rounded-lg border border-gray-300 dark:border-slate-600
-									   bg-white dark:bg-slate-900 text-sm outline-none
-									   focus:ring-2 focus:ring-blue-500"
-							/>
+							<NumberInput bind:value={amountMin} min={0} step={0.01} placeholder="0,00" class="w-24" />
 							<span class="text-gray-400 dark:text-slate-500 text-sm">–</span>
-							<input
-								type="number"
-								min="0"
-								step="0.01"
-								placeholder="∞"
-								bind:value={amountMax}
-								class="w-24 px-3 py-2 rounded-lg border border-gray-300 dark:border-slate-600
-									   bg-white dark:bg-slate-900 text-sm outline-none
-									   focus:ring-2 focus:ring-blue-500"
-							/>
+							<NumberInput bind:value={amountMax} min={0} step={0.01} placeholder="∞" class="w-24" />
 						</div>
 					</div>
 				</div>

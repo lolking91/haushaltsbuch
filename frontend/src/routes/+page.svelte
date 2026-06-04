@@ -113,15 +113,22 @@
 	<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
 
 		<!-- Total balance -->
-		<div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5 shadow-sm flex items-center gap-4">
+		<a
+			href="{base}/auswertungen"
+			class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5 shadow-sm flex items-center gap-4
+			       hover:border-blue-300 dark:hover:border-blue-600 transition-colors group"
+		>
 			<div class="w-11 h-11 rounded-lg bg-blue-50 dark:bg-blue-950/40 flex items-center justify-center shrink-0">
 				<Icon icon="heroicons:banknotes" class="w-6 h-6 text-blue-600 dark:text-blue-400" />
 			</div>
 			<div class="min-w-0">
 				<p class="text-xs text-gray-500 dark:text-slate-400 uppercase tracking-wide">{$_('dashboard.total_balance')}</p>
 				<p class="text-2xl font-bold tabular-nums truncate mt-0.5">{formatCurrency(totalBalance)}</p>
+				<p class="text-xs text-gray-400 dark:text-slate-500 mt-0.5 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+					{accounts.length} {$_('dashboard.accounts')} →
+				</p>
 			</div>
-		</div>
+		</a>
 
 		<!-- Income this month -->
 		<div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5 shadow-sm flex items-center gap-4">

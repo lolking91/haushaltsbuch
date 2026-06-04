@@ -3,6 +3,7 @@
 	import { _ } from 'svelte-i18n';
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
+	import { page } from '$app/state';
 	import {
 		Table,
 		TableBody,
@@ -32,19 +33,34 @@
 	let accounts = $state(data.accounts);
 	let categories = $state(data.categories);
 
-	// Quick search
-	let searchQuery = $state('');
+	// Quick search — restored from URL param ?q=
+	let searchQuery = $state(data.params.q);
 
-	// Advanced filter panel
-	let showFilters = $state(false);
-	let selectedAccountId = $state(data.selectedAccountId);
-	let selectedType = $state<TypeFilter>('ALL');
-	let selectedCategoryIds = $state(new Set<number>());
-	let uncategorizedOnly = $state(false);
-	let dateFrom = $state('');
-	let dateTo = $state('');
-	let amountMin = $state('');
-	let amountMax = $state('');
+	// Advanced filter panel — restored from URL params
+	let selectedAccountId = $state(data.params.accountId);
+	let selectedType = $state<TypeFilter>(data.params.type as TypeFilter);
+	let selectedCategoryIds = $state(
+		data.params.categories
+			? new Set(data.params.categories.split(',').map(Number).filter(Boolean))
+			: new Set<number>()
+	);
+	let uncategorizedOnly = $state(data.params.uncategorized);
+	let dateFrom = $state(data.params.from);
+	let dateTo = $state(data.params.to);
+	let amountMin = $state(data.params.amountMin);
+	let amountMax = $state(data.params.amountMax);
+
+	// Auto-open the filter panel when the page is loaded with active filter params.
+	let showFilters = $state(
+		data.params.type !== 'ALL' ||
+		!!data.params.accountId ||
+		!!data.params.categories ||
+		data.params.uncategorized ||
+		!!data.params.from ||
+		!!data.params.to ||
+		!!data.params.amountMin ||
+		!!data.params.amountMax
+	);
 
 	// Sorting & pagination
 	let sortKey = $state<SortKey>('bookingDate');
@@ -160,6 +176,27 @@
 		if (uncategorizedOnly) {
 			selectedCategoryIds = new Set();
 		}
+	});
+
+	// Sync filter state to the URL so filters survive navigation (back button, sharing links).
+	// Uses history.replaceState to update the URL without triggering a SvelteKit navigation
+	// or re-running the load function.
+	$effect(() => {
+		const params = new URLSearchParams();
+
+		if (searchQuery.trim())              params.set('q', searchQuery.trim());
+		if (selectedAccountId)               params.set('accountId', String(selectedAccountId));
+		if (selectedType !== 'ALL')          params.set('type', selectedType);
+		if (selectedCategoryIds.size > 0)    params.set('categories', [...selectedCategoryIds].join(','));
+		if (uncategorizedOnly)               params.set('uncategorized', 'true');
+		if (dateFrom)                        params.set('from', dateFrom);
+		if (dateTo)                          params.set('to', dateTo);
+		if (amountMin)                       params.set('amountMin', String(amountMin));
+		if (amountMax)                       params.set('amountMax', String(amountMax));
+
+		const query = params.toString();
+		const newUrl = query ? `${page.url.pathname}?${query}` : page.url.pathname;
+		history.replaceState(history.state, '', newUrl);
 	});
 
 	// --- Actions ---

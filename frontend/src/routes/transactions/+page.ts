@@ -14,5 +14,21 @@ export const load: PageLoad = async ({ url, fetch }) => {
 		categoriesApi.getAll(fetch)
 	]);
 
-	return { transactions, accounts, categories, selectedAccountId: accountId ?? '' };
+	// Read all filter params so the component can restore its state on load.
+	return {
+		transactions,
+		accounts,
+		categories,
+		params: {
+			accountId:      accountId ?? '',
+			q:              url.searchParams.get('q') ?? '',
+			type:           url.searchParams.get('type') ?? 'ALL',
+			categories:     url.searchParams.get('categories') ?? '',
+			uncategorized:  url.searchParams.get('uncategorized') === 'true',
+			from:           url.searchParams.get('from') ?? '',
+			to:             url.searchParams.get('to') ?? '',
+			amountMin:      url.searchParams.get('amountMin') ?? '',
+			amountMax:      url.searchParams.get('amountMax') ?? '',
+		}
+	};
 };

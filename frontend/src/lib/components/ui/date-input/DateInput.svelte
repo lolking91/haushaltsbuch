@@ -51,4 +51,12 @@
 	.date-input::-webkit-calendar-picker-indicator {
 		display: none;
 	}
+
+	/* Tell the browser to render the native date picker in light/dark mode accordingly. */
+	.date-input {
+		color-scheme: light;
+	}
+	:global(.dark) .date-input {
+		color-scheme: dark;
+	}
 </style>

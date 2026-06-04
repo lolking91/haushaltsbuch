@@ -186,7 +186,11 @@
 				{$_('dashboard.my_accounts')}
 			</h2>
 			{#each accounts as account (account.id)}
-				<div class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5 shadow-sm">
+				<a
+					href="{base}/transactions?accountId={account.id}"
+					class="block bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-5 shadow-sm
+					       hover:border-blue-300 dark:hover:border-blue-600 transition-colors group"
+				>
 					<div class="flex items-start justify-between gap-4">
 						<div class="flex items-center gap-3 min-w-0">
 							<div class="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-700 flex items-center justify-center shrink-0">
@@ -194,7 +198,9 @@
 							</div>
 							<div class="min-w-0">
 								<p class="font-semibold truncate">{account.name}</p>
-								<p class="text-xs text-gray-400 dark:text-slate-500 truncate">{account.bankName}</p>
+								<p class="text-xs text-gray-400 dark:text-slate-500 truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+									{account.bankName} →
+								</p>
 							</div>
 						</div>
 						<p class="text-lg font-bold tabular-nums whitespace-nowrap
@@ -206,7 +212,7 @@
 					<p class="text-xs font-mono text-gray-400 dark:text-slate-500 tracking-wider mt-3 pt-3 border-t border-gray-100 dark:border-slate-700">
 						{formatIban(account.iban)}
 					</p>
-				</div>
+				</a>
 			{/each}
 		</div>
 

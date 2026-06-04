@@ -218,6 +218,7 @@
 		"snapshot_delete_yes": "Löschen",
 		"delete_confirm": "Wirklich löschen?",
 		"delete_yes": "Löschen",
+		"btn_delete_etf": "ETF löschen",
 		"delete_has_snapshots": "ETF kann nicht gelöscht werden, solange Einträge vorhanden sind",
 		"chart_title": "Wertentwicklung",
 		"create_title": "ETF anlegen",

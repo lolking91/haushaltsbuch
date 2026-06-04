@@ -387,7 +387,7 @@
 							       flex items-center gap-2 transition-colors"
 						>
 							<Icon icon="heroicons:trash" class="w-4 h-4" />
-							{$_('portfolio.delete_yes')} ETF
+							{$_('portfolio.btn_delete_etf')}
 						</button>
 					{/if}
 				</div>

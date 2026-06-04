@@ -218,6 +218,7 @@
 		"snapshot_delete_yes": "Delete",
 		"delete_confirm": "Really delete?",
 		"delete_yes": "Delete",
+		"btn_delete_etf": "Delete ETF",
 		"delete_has_snapshots": "ETF cannot be deleted while entries exist",
 		"chart_title": "Value development",
 		"create_title": "Add ETF",

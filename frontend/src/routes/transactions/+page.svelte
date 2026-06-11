@@ -513,7 +513,17 @@
 					{#each paginated as tx (tx.id)}
 						<TableRow
 							class="cursor-pointer"
-							onclick={() => goto(`${base}/transactions/${tx.id}`)}
+							onclick={(e) => {
+								if (e.ctrlKey || e.metaKey) {
+									window.open(`${base}/transactions/${tx.id}`, '_blank');
+								} else {
+									goto(`${base}/transactions/${tx.id}`);
+								}
+							}}
+							onmousedown={(e) => { if (e.button === 1) e.preventDefault(); }}
+							onauxclick={(e) => {
+								if (e.button === 1) window.open(`${base}/transactions/${tx.id}`, '_blank');
+							}}
 						>
 							<TableCell class="whitespace-nowrap text-gray-500 dark:text-slate-400">
 								{formatDate(tx.bookingDate)}

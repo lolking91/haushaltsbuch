@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { base } from '$app/paths';
 	import Icon from '@iconify/svelte';
 	import { _ } from 'svelte-i18n';
 	import { categoryRulesApi } from '$lib/api/categoryRules.js';
 	import { CategorySelect } from '$lib/components/ui/category-select/index.js';
 	import { NumberInput } from '$lib/components/ui/number-input/index.js';
+	import { SaveButton } from '$lib/components/ui/save-button/index.js';
 	import type { ConditionField, ConditionMatcher, ConditionOperator } from '$lib/types/types.js';
 	import type { PageData } from './$types.js';
 
@@ -15,14 +16,18 @@
 
 	type ConditionForm = { field: ConditionField; matcher: ConditionMatcher; value: string };
 
-	let form = $state({
-		name: '',
-		categoryId: null as number | null,
-		priority: 0,
-		active: true,
-		conditionOperator: 'ALL' as ConditionOperator,
-		conditions: [{ field: 'COUNTERPARTY_NAME', matcher: 'CONTAINS', value: '' }] as ConditionForm[]
-	});
+	function defaultForm() {
+		return {
+			name: '',
+			categoryId: null as number | null,
+			priority: 0,
+			active: true,
+			conditionOperator: 'ALL' as ConditionOperator,
+			conditions: [{ field: 'COUNTERPARTY_NAME' as ConditionField, matcher: 'CONTAINS' as ConditionMatcher, value: '' }]
+		};
+	}
+
+	let form = $state(defaultForm());
 
 	let saving = $state(false);
 	let errorMessage = $state('');
@@ -47,7 +52,7 @@
 
 	// --- Submit ---
 
-	async function create() {
+	async function create(saveAndNew = false) {
 		saving = true;
 		errorMessage = '';
 		try {
@@ -63,9 +68,17 @@
 					value: c.value.trim()
 				}))
 			});
-			await goto(`${base}/category-rules/${created.id}`);
+			if (saveAndNew) {
+				// Same-route navigation doesn't re-mount the component, so reset state and
+				// re-run the load function to refresh server data (e.g. category dropdown).
+				form = defaultForm();
+				await invalidateAll();
+			} else {
+				await goto(`${base}/category-rules/${created.id}`);
+			}
 		} catch {
 			errorMessage = $_('category_rules.create_error');
+		} finally {
 			saving = false;
 		}
 	}
@@ -280,19 +293,12 @@
 
 			<!-- Submit -->
 			<div class="flex justify-end pt-1">
-				<button
-					type="submit"
+				<SaveButton
+					label={$_('category_rules.btn_create')}
 					disabled={!canSave || saving}
-					class="px-4 py-2 rounded-lg text-sm font-medium
-					       bg-blue-600 hover:bg-blue-700 text-white transition-colors
-					       disabled:opacity-40 disabled:cursor-not-allowed
-					       flex items-center gap-1.5"
-				>
-					{#if saving}
-						<Icon icon="heroicons:arrow-path" class="w-4 h-4 animate-spin" />
-					{/if}
-					{$_('category_rules.btn_create')}
-				</button>
+					{saving}
+					onsaveandnew={() => create(true)}
+				/>
 			</div>
 
 		</form>

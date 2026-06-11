@@ -1,6 +1,7 @@
 {
 	"common": {
 		"btn_save": "Save",
+		"btn_save_and_new": "Save and new",
 		"btn_reset": "Reset",
 		"btn_cancel": "Cancel",
 		"save_success": "Changes saved.",

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
+	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { _ } from 'svelte-i18n';
 	import { Badge } from '$lib/components/ui/badge/index.js';
@@ -7,6 +8,7 @@
 	import { formatDate } from '$lib/utils/format.js';
 	import { transactionsApi } from '$lib/api/transactions.js';
 	import { CategorySelect } from '$lib/components/ui/category-select/index.js';
+	import { SaveButton } from '$lib/components/ui/save-button/index.js';
 	import type { PageData } from './$types.js';
 
 	let { data }: { data: PageData } = $props();
@@ -53,6 +55,11 @@
 		form.bookingText = saved.bookingText;
 		form.categoryId = saved.categoryId;
 		saveStatus = 'idle';
+	}
+
+	async function saveAndNew() {
+		await save();
+		if (saveStatus !== 'error') await goto(`${base}/transactions`);
 	}
 
 	/** Persists editable fields via PATCH and updates the saved snapshot on success. */
@@ -304,19 +311,12 @@
 					>
 						{$_('common.btn_reset')}
 					</button>
-					<button
-						type="submit"
+					<SaveButton
+						label={$_('common.btn_save')}
 						disabled={!isDirty || saving}
-						class="px-4 py-2 rounded-lg text-sm font-medium
-						       bg-blue-600 hover:bg-blue-700 text-white transition-colors
-						       disabled:opacity-40 disabled:cursor-not-allowed
-						       flex items-center gap-1.5"
-					>
-						{#if saving}
-							<Icon icon="heroicons:arrow-path" class="w-4 h-4 animate-spin" />
-						{/if}
-						{$_('common.btn_save')}
-					</button>
+						{saving}
+						onsaveandnew={saveAndNew}
+					/>
 				</div>
 
 			</form>

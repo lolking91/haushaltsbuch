@@ -5,16 +5,15 @@
 	import { _ } from 'svelte-i18n';
 	import { etfsApi } from '$lib/api/etfs.js';
 	import { ApiError } from '$lib/api/client.js';
+	import { SaveButton } from '$lib/components/ui/save-button/index.js';
 
 	// --- Form state ---
 
-	let form = $state({
-		name: '',
-		wkn: '',
-		isin: '',
-		brokerName: '',
-		notes: ''
-	});
+	function defaultForm() {
+		return { name: '', wkn: '', isin: '', brokerName: '', notes: '' };
+	}
+
+	let form = $state(defaultForm());
 
 	let saving = $state(false);
 	let errorMessage = $state('');
@@ -32,7 +31,7 @@
 
 	// --- Actions ---
 
-	async function create() {
+	async function create(saveAndNew = false) {
 		saving = true;
 		errorMessage = '';
 		serverFieldErrors = {};
@@ -44,7 +43,13 @@
 				brokerName: form.brokerName.trim() || undefined,
 				notes: form.notes.trim() || undefined
 			});
-			await goto(`${base}/portfolio/${created.id}`);
+			if (saveAndNew) {
+				// Same-route navigation doesn't re-mount the component, so reset state manually.
+				form = defaultForm();
+				serverFieldErrors = {};
+			} else {
+				await goto(`${base}/portfolio/${created.id}`);
+			}
 		} catch (e: unknown) {
 			if (e instanceof ApiError && e.status === 400) {
 				try {
@@ -57,6 +62,7 @@
 			} else {
 				errorMessage = $_('portfolio.create_error');
 			}
+		} finally {
 			saving = false;
 		}
 	}
@@ -181,19 +187,12 @@
 
 			<!-- Action -->
 			<div class="flex justify-end pt-1">
-				<button
-					type="submit"
+				<SaveButton
+					label={$_('portfolio.btn_create')}
 					disabled={!canSave || saving}
-					class="px-4 py-2 rounded-lg text-sm font-medium
-					       bg-blue-600 hover:bg-blue-700 text-white transition-colors
-					       disabled:opacity-40 disabled:cursor-not-allowed
-					       flex items-center gap-1.5"
-				>
-					{#if saving}
-						<Icon icon="heroicons:arrow-path" class="w-4 h-4 animate-spin" />
-					{/if}
-					{$_('portfolio.btn_create')}
-				</button>
+					{saving}
+					onsaveandnew={() => create(true)}
+				/>
 			</div>
 		</form>
 	</div>

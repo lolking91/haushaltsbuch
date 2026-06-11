@@ -6,6 +6,7 @@
 	import { categoryRulesApi } from '$lib/api/categoryRules.js';
 	import { CategorySelect } from '$lib/components/ui/category-select/index.js';
 	import { NumberInput } from '$lib/components/ui/number-input/index.js';
+	import { SaveButton } from '$lib/components/ui/save-button/index.js';
 	import type { ConditionField, ConditionMatcher, ConditionOperator } from '$lib/types/types.js';
 	import type { PageData } from './$types.js';
 
@@ -88,6 +89,11 @@
 		} finally {
 			saving = false;
 		}
+	}
+
+	async function saveAndNew() {
+		await save();
+		if (saveStatus !== 'error') await goto(`${base}/category-rules/new`);
 	}
 
 	// --- Delete state ---
@@ -333,19 +339,12 @@
 				>
 					{$_('common.btn_reset')}
 				</button>
-				<button
-					type="submit"
+				<SaveButton
+					label={$_('common.btn_save')}
 					disabled={!canSave || saving}
-					class="px-4 py-2 rounded-lg text-sm font-medium
-					       bg-blue-600 hover:bg-blue-700 text-white transition-colors
-					       disabled:opacity-40 disabled:cursor-not-allowed
-					       flex items-center gap-1.5"
-				>
-					{#if saving}
-						<Icon icon="heroicons:arrow-path" class="w-4 h-4 animate-spin" />
-					{/if}
-					{$_('common.btn_save')}
-				</button>
+					{saving}
+					onsaveandnew={saveAndNew}
+				/>
 			</div>
 
 		</form>

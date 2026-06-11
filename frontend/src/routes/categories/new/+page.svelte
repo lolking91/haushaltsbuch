@@ -1,22 +1,22 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { base } from '$app/paths';
 	import Icon from '@iconify/svelte';
 	import { _ } from 'svelte-i18n';
 	import { categoriesApi } from '$lib/api/categories.js';
 	import { randomColor } from '$lib/utils/format.js';
+	import { SaveButton } from '$lib/components/ui/save-button/index.js';
 	import type { PageData } from './$types.js';
 
 	let { data }: { data: PageData } = $props();
 
 	// --- Form state --------------------------------------------------------------
 
-	let form = $state({
-		name: '',
-		color: randomColor(),
-		parentCategoryId: null as number | null
-	});
+	function defaultForm() {
+		return { name: '', color: randomColor(), parentCategoryId: null as number | null };
+	}
 
+	let form = $state(defaultForm());
 	let saving = $state(false);
 	let errorMessage = $state('');
 
@@ -27,7 +27,7 @@
 
 	// --- Actions -----------------------------------------------------------------
 
-	async function create() {
+	async function create(saveAndNew = false) {
 		saving = true;
 		errorMessage = '';
 		try {
@@ -36,11 +36,17 @@
 				color: form.color,
 				parentCategoryId: form.parentCategoryId
 			});
-			// Navigate to the new category's detail page so the user can review or
-			// continue editing immediately.
-			await goto(`${base}/categories/${created.id}`);
+			if (saveAndNew) {
+				// Same-route navigation doesn't re-mount the component, so reset state and
+				// re-run the load function to refresh server data (e.g. parent category dropdown).
+				form = defaultForm();
+				await invalidateAll();
+			} else {
+				await goto(`${base}/categories/${created.id}`);
+			}
 		} catch {
 			errorMessage = $_('category_create.create_error');
+		} finally {
 			saving = false;
 		}
 	}
@@ -143,19 +149,12 @@
 
 			<!-- Action button -->
 			<div class="flex justify-end pt-1">
-				<button
-					type="submit"
+				<SaveButton
+					label={$_('category_create.btn_create')}
 					disabled={!canSave || saving}
-					class="px-4 py-2 rounded-lg text-sm font-medium
-					       bg-blue-600 hover:bg-blue-700 text-white transition-colors
-					       disabled:opacity-40 disabled:cursor-not-allowed
-					       flex items-center gap-1.5"
-				>
-					{#if saving}
-						<Icon icon="heroicons:arrow-path" class="w-4 h-4 animate-spin" />
-					{/if}
-					{$_('category_create.btn_create')}
-				</button>
+					{saving}
+					onsaveandnew={() => create(true)}
+				/>
 			</div>
 
 		</form>

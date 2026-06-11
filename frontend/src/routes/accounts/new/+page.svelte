@@ -5,19 +5,17 @@
 	import { _ } from 'svelte-i18n';
 	import { accountsApi } from '$lib/api/accounts.js';
 	import { NumberInput } from '$lib/components/ui/number-input/index.js';
+	import { SaveButton } from '$lib/components/ui/save-button/index.js';
 	import { ApiError } from '$lib/api/client.js';
 	import { validateIban } from '$lib/utils/format.js';
 
 	// --- Form state --------------------------------------------------------------
 
-	let form = $state({
-		name: '',
-		bankName: '',
-		iban: '',
-		balance: '' as string,
-		currency: 'EUR' as 'EUR'
-	});
+	function defaultForm() {
+		return { name: '', bankName: '', iban: '', balance: '' as string, currency: 'EUR' as 'EUR' };
+	}
 
+	let form = $state(defaultForm());
 	let saving = $state(false);
 	/** Generic fallback error shown when the server returns no field-level detail. */
 	let errorMessage = $state('');
@@ -38,7 +36,7 @@
 
 	// --- Actions -----------------------------------------------------------------
 
-	async function create() {
+	async function create(saveAndNew = false) {
 		saving = true;
 		errorMessage = '';
 		serverFieldErrors = {};
@@ -50,10 +48,14 @@
 				currency: form.currency,
 				balance: form.balance !== '' ? Number(form.balance) : undefined
 			});
-			await goto(`${base}/accounts/${created.id}`);
+			if (saveAndNew) {
+				// Same-route navigation doesn't re-mount the component, so reset state manually.
+				form = defaultForm();
+			} else {
+				await goto(`${base}/accounts/${created.id}`);
+			}
 		} catch (e: unknown) {
 			if (e instanceof ApiError && e.status === 400) {
-				// Try to parse the structured field-error JSON from the backend
 				try {
 					serverFieldErrors = JSON.parse(e.message) as Record<string, string>;
 				} catch {
@@ -62,6 +64,7 @@
 			} else {
 				errorMessage = $_('account_create.create_error');
 			}
+		} finally {
 			saving = false;
 		}
 	}
@@ -185,19 +188,12 @@
 
 			<!-- Action button -->
 			<div class="flex justify-end pt-1">
-				<button
-					type="submit"
+				<SaveButton
+					label={$_('account_create.btn_create')}
 					disabled={!canSave || saving}
-					class="px-4 py-2 rounded-lg text-sm font-medium
-					       bg-blue-600 hover:bg-blue-700 text-white transition-colors
-					       disabled:opacity-40 disabled:cursor-not-allowed
-					       flex items-center gap-1.5"
-				>
-					{#if saving}
-						<Icon icon="heroicons:arrow-path" class="w-4 h-4 animate-spin" />
-					{/if}
-					{$_('account_create.btn_create')}
-				</button>
+					{saving}
+					onsaveandnew={() => create(true)}
+				/>
 			</div>
 
 		</form>

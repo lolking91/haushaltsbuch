@@ -9,6 +9,7 @@
 	import type { Etf, EtfSnapshot } from '$lib/types/types.js';
 	import { etfsApi } from '$lib/api/etfs.js';
 	import { NumberInput } from '$lib/components/ui/number-input/index.js';
+	import { SaveButton } from '$lib/components/ui/save-button/index.js';
 	import { ApiError } from '$lib/api/client.js';
 	import EtfLineChart from '$lib/components/charts/EtfLineChart.svelte';
 
@@ -134,6 +135,11 @@
 		} finally {
 			saving = false;
 		}
+	}
+
+	async function saveAndNew() {
+		await save();
+		if (saveStatus !== 'error') await goto(`${base}/portfolio/new`);
 	}
 
 	async function addSnapshot() {
@@ -336,18 +342,12 @@
 							>
 								{$_('common.btn_reset')}
 							</button>
-							<button
-								type="submit"
+							<SaveButton
+								label={$_('common.btn_save')}
 								disabled={!canSave || saving}
-								class="px-4 py-2 rounded-lg text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white
-								       transition-colors disabled:opacity-40 disabled:cursor-not-allowed
-								       flex items-center gap-1.5"
-							>
-								{#if saving}
-									<Icon icon="heroicons:arrow-path" class="w-4 h-4 animate-spin" />
-								{/if}
-								{$_('common.btn_save')}
-							</button>
+								{saving}
+								onsaveandnew={saveAndNew}
+							/>
 						</div>
 					</form>
 				</div>

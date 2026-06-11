@@ -1,6 +1,7 @@
 {
 	"common": {
 		"btn_save": "Speichern",
+		"btn_save_and_new": "Speichern und neu",
 		"btn_reset": "Zurücksetzen",
 		"btn_cancel": "Abbrechen",
 		"save_success": "Änderungen gespeichert.",

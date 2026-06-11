@@ -4,6 +4,7 @@
 	import Icon from '@iconify/svelte';
 	import { _ } from 'svelte-i18n';
 	import { categoriesApi } from '$lib/api/categories.js';
+	import { SaveButton } from '$lib/components/ui/save-button/index.js';
 	import type { PageData } from './$types.js';
 
 	let { data }: { data: PageData } = $props();
@@ -59,6 +60,11 @@
 		form.color = saved.color;
 		form.parentCategoryId = saved.parentCategoryId;
 		saveStatus = 'idle';
+	}
+
+	async function saveAndNew() {
+		await save();
+		if (saveStatus !== 'error') await goto(`${base}/categories/new`);
 	}
 
 	// --- Delete state ------------------------------------------------------------
@@ -245,19 +251,12 @@
 				>
 					{$_('common.btn_reset')}
 				</button>
-				<button
-					type="submit"
+				<SaveButton
+					label={$_('common.btn_save')}
 					disabled={!isDirty || saving}
-					class="px-4 py-2 rounded-lg text-sm font-medium
-					       bg-blue-600 hover:bg-blue-700 text-white transition-colors
-					       disabled:opacity-40 disabled:cursor-not-allowed
-					       flex items-center gap-1.5"
-				>
-					{#if saving}
-						<Icon icon="heroicons:arrow-path" class="w-4 h-4 animate-spin" />
-					{/if}
-					{$_('common.btn_save')}
-				</button>
+					{saving}
+					onsaveandnew={saveAndNew}
+				/>
 			</div>
 
 		</form>

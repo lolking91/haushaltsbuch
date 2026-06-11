@@ -6,6 +6,7 @@
 	import { Amount } from '$lib/components/ui/amount/index.js';
 	import { formatDate } from '$lib/utils/format.js';
 	import { transactionsApi } from '$lib/api/transactions.js';
+	import { CategorySelect } from '$lib/components/ui/category-select/index.js';
 	import type { PageData } from './$types.js';
 
 	let { data }: { data: PageData } = $props();
@@ -268,18 +269,13 @@
 					>
 						{$_('transaction_detail.field_category')}
 					</label>
-					<select
+					<CategorySelect
 						id="categoryId"
 						bind:value={form.categoryId}
-						class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-slate-600
-						       bg-white dark:bg-slate-900 text-sm outline-none
-						       focus:ring-2 focus:ring-blue-500"
-					>
-						<option value={null}>{$_('transaction_detail.category_none')}</option>
-						{#each categories as cat}
-							<option value={cat.id}>{cat.name}</option>
-						{/each}
-					</select>
+						{categories}
+						placeholder={$_('transaction_detail.category_none')}
+						class="w-full"
+					/>
 				</div>
 
 				<!-- Status message -->

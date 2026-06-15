@@ -21,11 +21,14 @@ services:
 
   # ---------------------------------------------------------------------------
   # Spring Boot backend (includes built SvelteKit frontend as static resources)
-  # Backend is not exposed directly — all traffic goes through nginx
+  # Exposed on localhost only — the central nginx in the infra repo proxies
+  # requests from outside to http://127.0.0.1:8080.
   # ---------------------------------------------------------------------------
   backend:
     image: ghcr.io/lolking91/haushaltsbuch:latest
     restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:8080"
     environment:
       SPRING_PROFILES_ACTIVE: prod
       DB_HOST: postgres
@@ -35,20 +38,6 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-
-  # ---------------------------------------------------------------------------
-  # nginx reverse proxy — exposes the app on port 80
-  # Accessible via http://homeone/banking
-  # ---------------------------------------------------------------------------
-  nginx:
-    image: nginx:alpine
-    restart: unless-stopped
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-    depends_on:
-      - backend
 
 volumes:
   postgres_data:

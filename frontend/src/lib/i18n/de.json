@@ -22,7 +22,17 @@
 		"import": "CSV Import",
 		"reports": "Auswertungen",
 		"toggle_dark_mode": "Dark Mode umschalten",
-		"open_menu": "Menü öffnen"
+		"open_menu": "Menü öffnen",
+		"logout": "Abmelden"
+	},
+	"login": {
+		"title": "Anmelden",
+		"field_username": "Benutzername",
+		"field_password": "Passwort",
+		"btn_submit": "Anmelden",
+		"btn_submitting": "Anmeldung läuft…",
+		"error_invalid": "Benutzername oder Passwort falsch.",
+		"error_generic": "Anmeldung fehlgeschlagen. Bitte später erneut versuchen."
 	},
 	"dashboard": {
 		"total_balance": "Gesamtsaldo",

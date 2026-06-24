@@ -1,10 +1,17 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { page } from '$app/state';
+	import { goto } from '$app/navigation';
 	import Icon from '@iconify/svelte';
 	import { theme } from '$lib/stores/theme.svelte';
+	import { auth } from '$lib/stores/auth.svelte.js';
 	import { locale, setLocale, type Locale } from '$lib/i18n/index.js';
 	import { _ } from 'svelte-i18n';
+
+	async function logout() {
+		await auth.logout();
+		await goto(`${base}/login`);
+	}
 
 	// Nav links are reactive so their labels update when the locale changes.
 	let links = $derived([
@@ -82,6 +89,16 @@
 						icon={theme.dark ? 'heroicons:sun' : 'heroicons:moon'}
 						class="w-5 h-5"
 					/>
+				</button>
+
+				<!-- Logout -->
+				<button
+					onclick={logout}
+					class="p-2 rounded-md text-slate-300 hover:bg-slate-700 hover:text-white transition-colors"
+					aria-label={$_('nav.logout')}
+					title={$_('nav.logout')}
+				>
+					<Icon icon="heroicons:arrow-right-on-rectangle" class="w-5 h-5" />
 				</button>
 
 				<!-- Hamburger (mobile only) -->

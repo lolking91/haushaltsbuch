@@ -22,7 +22,17 @@
 		"import": "CSV Import",
 		"reports": "Reports",
 		"toggle_dark_mode": "Toggle dark mode",
-		"open_menu": "Open menu"
+		"open_menu": "Open menu",
+		"logout": "Log out"
+	},
+	"login": {
+		"title": "Sign in",
+		"field_username": "Username",
+		"field_password": "Password",
+		"btn_submit": "Sign in",
+		"btn_submitting": "Signing in…",
+		"error_invalid": "Invalid username or password.",
+		"error_generic": "Sign-in failed. Please try again later."
 	},
 	"dashboard": {
 		"total_balance": "Total balance",

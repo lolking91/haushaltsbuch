@@ -35,6 +35,10 @@ services:
       DB_PORT: 5432
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
+      AUTH_USERNAME: ${AUTH_USERNAME}
+      # BCrypt hash of the login password, e.g. generated via
+      # new BCryptPasswordEncoder().encode("...") — never put the plain password here.
+      AUTH_PASSWORD_HASH: ${AUTH_PASSWORD_HASH}
     depends_on:
       postgres:
         condition: service_healthy
